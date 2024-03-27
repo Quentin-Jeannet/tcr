@@ -1,0 +1,277 @@
+back:
+  message:
+    requiredField: Required field(s)
+    userAddSuccess: User added successfully
+    userEditSuccess: User edited successfully
+    userDeleteSuccess: User deleted successfully
+    categoryAddSuccess: Category added successfully
+    categoryEditSuccess: Category edited successfully
+    categoryDeleteSuccess: Category deleted successfully
+    subCategoryAddSuccess: Sub-category added successfully
+    subCategoryEditSuccess: Sub-category edited successfully
+    subCategoryDeleteSuccess: Sub-category deleted successfully
+    priceAddSuccess: Price added successfully
+    priceEditSuccess: Price edited successfully
+    priceDeleteSuccess: Price deleted successfully
+    noRecordFound: No record found
+    newsLetterRegistrationSuccess: Your registration for the newsletter is successful
+    newsLetterRegistrationAlreadyExists: You are already registered for the newsletter
+    newsLetterSubscriberDeleteSuccess: NewsLetter subscriber deleted successfully
+    newsLetterSubscriberEditSuccess: NewsLetter subscriber edited successfully
+    newsLetterSubscriberAddSuccess: NewsLetter subscriber added successfully
+    colorAddSuccess: Color added successfully
+    colorEditSuccess: Color edited successfully
+    colorDeleteSuccess: Color deleted successfully
+    goodyAddSuccess: Goody added successfully
+    goodyEditSuccess: Goody edited successfully
+    goodyDeleteSuccess: Goody deleted successfully
+  titles:
+    colors: Colours
+    newColor: New colour
+    editColor: Edit colour
+    colorFamily: Colour families
+    newColorFamily: New color family
+    editColorFamily: Color Family Edition
+    goodies: Goodies
+    newGoodies: New goodies
+    editGoodies: Edit goodies
+    categories: Categories
+    category: Category
+    newCategory: New category
+    editCategory: Edit category
+    subCategories: Sub-categories
+    subCategory: Sub-category
+    newSubCategory: New sub-category
+    editSubCategory: Edit sub-category
+    prices: Prices
+    price: Price
+    newPrice: New price
+    editPrice: Edit price
+    seo: SEO
+    paint: Paint
+    content: Contents
+    wall: Wall
+    floor: Floor
+    users: Users
+    newUser : New user
+    editUser : Edit user
+    contacts: Contacts
+    contact: Contact
+    newsLetterMembers: NewsLetter members
+    newNewsLetterMember: New NewsLetter member
+    editNewsLetterMember: NewsLetter member
+    socialNetworks: Social Networks
+    socialNetwork: Social Network
+    editFloor : Floor edition
+    floors: Floors
+    newFloor : New floor
+    floorFamilies: Floor families
+    newFloorFamily: New floor family
+    editFloorFamily: Floor family edition
+    floorPrices: Floor prices
+    newFloorPrice: New floor price
+    editFloorPrice: Floor price edition
+    floorWidth: Floor width
+    editFloorWidth: Floor width edition
+    newFloorWidth: New floor width
+    floorPatterns: Floor patterns
+    newFloorPattern: New floor pattern
+    editFloorPattern: Floor pattern edition
+  labels:
+    classes: Fontawesome classes
+    link: Link
+    title: Title
+    name: Name 
+    secondeName: Second name
+    firstname: Firstname
+    email: Email
+    phone: Phone
+    address: Address
+    complementAddress: Complement address
+    zipCode: Zip code
+    city: City
+    country: Country
+    role: Role
+    password: Password
+    confirmPassword: Confirm password
+    active: Active
+    hexa: Hexadecimal
+    actions: Actions
+    color: Colour
+    picture: Picture
+    description: Description
+    associatedColors: Associated coulors
+    colorFamily: Colour families
+    prices: Prices
+    price: Price
+    liter: Litre
+    milliliter: Milliliter
+    roleUser: User
+    roleAdmin: Admin
+    roleSuperAdmin: Super administrateur
+    avatar: Avatar
+    rank: Rank
+    author: Author
+    keywords: Keywords 
+    slug: Slug
+    masonry: Masonry width
+    quantity: Quantity
+    measure: Measure
+    createdAt: Created at
+    subject: Subject
+    message: Message
+    newsLetterMembers: NewsLetter members
+    newNewsLetterMember: New newsLetter member
+    editNewsLetterMember: Edit newsLetter member
+    floor: Floor
+    floorFamily: Floor family
+    floorThickness: Floor thickness
+    floorWidth: Floor length
+    floorLength: Floor width
+    floorFinition: Floor finish
+    floorRendering: Floor rendering
+    floorType: Floor type
+    image: Picture
+    image_help: Image representing this category in the navigation menu
+    width: Width
+    isMenu: Main menu
+  ctas:
+    new: New
+    backToList: Back to list
+    goToSite: Go to website
+    home: Home
+    price: Prices
+    users: Users
+    newsletter: Newsletter
+    socialNetwork: Social networks
+    floorWidth: Floor width
+    floorPattern: Floor pattern
+front:
+  general:
+    ourcolors: Our colors
+    ourfloors: Our floors
+    all: All
+    seeAlso: See also
+    total: Total
+    ttc: ATI
+    finish: Finishes
+    addToCart: Add to cart
+    colorRecommanded: Associated colors recommended
+    showConfigurator: Show configurator
+    goodies: Goodies
+    thickness: Thickness
+    pattern: Pattern
+    registred:
+      title: Congratulations!
+      message: Your registration has been taken into account, a confirmation email has been sent to you.
+      confirm: Complete your registration by validating your account by clicking the link in the email, please note this link is only valid for one hour.
+      spam: If you did not receive the email, please check your spam folder.
+  panier:
+    empty: Your cart is empty
+    product: Products
+    quantity: Quantity
+    price: Price
+    measure: Measure
+    totalPrice: Total price
+    mycart: My cart
+    valid: Validate my cart
+    remove: Empty my cart
+    info: You must be logged in to continue
+    added: Item(s) added to cart
+    continue: Continue shopping
+    go: Go to cart
+    associated : These colors might interest you
+    goodies : These goodies might interest you
+    connect: Connect to continue shopping
+    commande:
+      title: Delivery and Payment
+      adresses: Addresses
+      deliveryAddress: Delivery address
+      billingAddress: Billing address
+      edit: Edit
+      deliveryOptions: Delivery options
+      summary: Order summary
+      delivery: Delivery
+      commande: Order
+      total: Total
+      pay: Proceed to payment
+      save : Save
+      valid: Validate
+      back: Back
+  user:
+    welcome: Welcome
+    email: Mail
+    address: Addresses
+    addressNotProvided: You have not yet registered an address
+    addAddress : Add an address
+    phone : Phone number
+    phoneNotProvided : You have not yet registered a phone number
+    editInfo: Edit informations
+    editPassword: Edit password
+    orders: Orders
+    profile: Profile
+    emptyAddress: No address registered yet
+    addNewAddress: Add an address
+    save: Save
+    newAddress : New address
+    colors : Favorite colors
+    myAddress : My addresses
+    myColors : My favorite colors
+    emptyColors : No favorite colors registered yet
+    edit : Edit
+    myOrders : My orders
+  login:
+    login: Log in
+    loged: You're logged in as
+    logout: Log out
+    pleaseSignIn: Please sign in
+    email: Email
+    password: Password
+    signIn: Sign in
+    notRegistred: Not registred yet?
+    forgotten: Forgotten password?
+    remember : Remember me
+    register: Register
+    email_already_used : Email already used
+    password_not_match : Passwords not match
+    password_pregmatch : Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character
+  footer:
+    info: MORE INFOS
+    mission: Mission statements
+    history: History
+    about: About us
+    safety: Safety sheets
+    transport: Transport
+    inspired: BE INSPIRED
+    blog: TCR Stories (Blog)
+    contact: Contact us
+    learn: Learn more
+    stores: Stores
+    more: MORE
+    fidbox: Fidbox Monitoring System
+    material: Material solid/engineered
+    maintenance: Maintenance
+    rights: ALL RIGHTS RESERVED
+    privacy: Privacy policy
+    terms: Terms of use
+    newsletter: THE COLORS REPUBLIC NEWSLETTER
+    email: Your email
+    subscribe: Subscribe
+  contact:
+    email: Email
+    subject: Subject
+    message: Message
+    send: Send
+    success: Thank you, your message has been sent.
+  email:
+    message: 'Please confirm your email address by clicking the following link:'
+    thanks: Thank you !
+    welcome: Welcome to the Colour Republic !
+    confirm: Confirm your email
+    expire: This link will expire in
+  floor:
+    noPattern: No pattern
+
+
+
+

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="robots" content="noindex, nofollow " />
+		<meta name="googlebot" content="noindex, nofollow " />
+
+		{% block head %}{% endblock %}
+		<title>
+			{% block title %}The Color Republic{% endblock %}
+		</title>
+				{# Favicon #}
+		{% include '_favicon.html.twig' %}
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		<!-- CSS only -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> <!-- Font awsome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		{# ionicons #}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		{# Lightbox #}
+		<link rel="stylesheet" href="{{ asset('css/lightbox.min.css') }}">
+		{# CSS #}
+		<link rel="stylesheet" href="{{asset('css/style-front.css')}}"> {% block stylesheets %}{% endblock %}
+		{# Favicon #}
+		{% include '_favicon.html.twig' %}
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<div class="nav-link col-4 col-sm-3 col-md-2" id="logo-div">
+					<a class="navbar-brand" href="{{path('home')}}" title="Home Page"><img src="{{asset('/images/logo/color-republic-logo.png')}}" alt="Color Republic" class="img-fluid"></a>
+				</div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-nav navbar-collapse flex-grow-0" id="navbarNavAltMarkup">
+						{{ render(controller('App\\Controller\\NavbarController::index')) }}
+				</div>
+				<div class="collapse navbar-nav navbar-collapse flex-grow-0 flex-row justify-content-end"  id="navbarNavAltMarkup">
+						<a class="nav-link me-3 me-md-0" href="{{path('panier_index')}}" title="Cart">
+							<ion-icon name="cart-outline"></ion-icon>
+						</a>
+						{% if is_granted('ROLE_USER') %}
+						<a href="{{path('profile')}}" class="tray text-dark nav-link me-3 me-md-0 " title="Profil">
+							<span class="text-secondary">
+								<ion-icon name="person-outline"></ion-icon>
+							</span>
+						</a>
+						<a class="nav-link me-3 me-md-0 " href="{{ path('app_logout') }}" title="Log out">
+							<ion-icon name="log-out-outline"></ion-icon>
+						</a>
+						{% else %}
+						<a class="nav-link me-3 me-md-0" data-bs-toggle="modal" data-bs-target="#modalLogin" role="button" title="Sign in">
+							<ion-icon name="log-in-outline"></ion-icon>
+						</a>
+						{% endif %}
+
+						<li class="nav-item dropdown local">
+							<a class="nav-link dropdown-toggle langChange" href="#" id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								<ion-icon name="earth"></ion-icon>
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								{% for lang in locales %}
+								{% if lang != app.request.locale %}
+								<li>
+									<a class="dropdown-item" href="{{path('change_locale', {'locale': lang})}}">{{lang|upper}}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+				</div>
+			</div>
+		</nav>
+
+		{% block body %}{% endblock %}
+		<footer>
+			<div class="container-footer mt-5">
+				<div class="container">
+					<div class="d-flex justify-content-between flex-wrap">
+						<div class="col-md-4 col-12 mb-4">
+							{{ render(controller('App\\Controller\\MemberController::renderNewsletterForm')) }}
+						</div>
+						<div class="col-md-6 col-12">
+							<div class="d-flex justify-content-between flex-wrap">
+								{{ render(controller('App\\Controller\\PagesController::renderFooter')) }}
+
+								{# <div class="mb-4 col-12 col-md-4">
+									<div class="mb-2">{% trans %}front.footer.info{% endtrans %}</div>
+									<div class="d-flex flex-column lead">
+										<a href="{{path('app_footer_sub', {'slugSubCategory' : 'missions'})}}" class="link-footer">{% trans %}front.footer.mission{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.history{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.about{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.safety{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.transport{% endtrans %}</a>
+									</div>
+								</div>
+								<div class="mb-4 col-12 col-md-4">
+									<div class="mb-2">{% trans %}front.footer.inspired{% endtrans %}</div>
+									<div class="d-flex flex-column lead">
+										<a href="#" class="link-footer">{% trans %}front.footer.about{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.blog{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.contact{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.learn{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.stores{% endtrans %}</a>
+									</div>
+								</div>
+								<div class="mb-4 col-12 col-md-4">
+									<div class="mb-2">{% trans %}front.footer.more{% endtrans %}</div>
+									<div class="d-flex flex-column lead">
+										<a href="#" class="link-footer">{% trans %}front.footer.fidbox{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.material{% endtrans %}</a>
+										<a href="#" class="link-footer">{% trans %}front.footer.maintenance{% endtrans %}</a>
+									</div>
+								</div>
+							</div> #}
+						</div>
+					</div>
+					<hr>
+					<div class="mb-2">{% trans %}front.footer.rights{% endtrans %}</div>
+					<div class="d-flex justify-content-between">
+						<div class="footer-rights">
+							<a href="#"  class="link-footer">{% trans %}front.footer.privacy{% endtrans %}</a>
+							<a href="#"  class="link-footer">{% trans %}front.footer.terms{% endtrans %}</a>
+							<a href="#"  class="link-footer">{% trans %}front.footer.contact{% endtrans %}</a>
+						</div>
+						<div class="col-6 fs-5">
+							{{ render(controller('App\\Controller\\SocialNetworkController::index'))}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header nav nav-tabs" id="nav-tab" role="tablist">
+					<button class="nav-link active" id="nav-login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">{% trans %}front.login.pleaseSignIn{% endtrans %}</button>
+					<button class="nav-link" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">{% trans %}front.login.register{% endtrans %}</button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+						<form name="login" action="{{ path('app_login') }}" method="post">
+							<div class="modal-body">
+								{% set value = '' %}
+								{% for message in app.flashes('loginError') %}
+									<div class="alert alert-danger">
+										{{ message }}
+									</div>
+								{% endfor %}
+								{% for message in app.flashes('loginUser') %}
+									{% set value = message %}
+								{% endfor %}
+								{% if app.user %}
+									<div class="mb-3">
+										{% trans %}front.login.loged{% endtrans %}
+										{{ app.user.userIdentifier }},
+										<a href="{{ path('app_logout') }}">{% trans %}front.login.logout{% endtrans %}</a>
+									</div>
+								{% endif %}
+								<label for="inputEmail">{% trans %}front.login.email{% endtrans %}</label>
+								<input type="email" value="{{value}}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+								<label for="inputPassword">{% trans %}front.login.password{% endtrans %}</label>
+								<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+								<input	type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								<div class="checkbox mb-3">
+									<label class="fs-7">
+										<input type="checkbox" name="_remember_me"> <i>{% trans %}front.login.remember{% endtrans %}</i>
+									</label>
+								</div>
+							</div>
+							<div class="modal-footer justify-content-between">
+								<div class="d-flex flex-column">
+									<a href="#" class="text-end fs-7">
+										<i>{% trans %}front.login.forgotten{% endtrans %}</i>
+									</a>
+									<a href="{{ path('app_register') }}" class="fs-7">
+										<i>{% trans %}front.login.notRegistred{% endtrans %}</i>
+									</a>
+								</div>
+								<button class="btn btn-lg btn-sub" type="submit" name="login[submit]">{% trans %}front.login.signIn{% endtrans %}</button>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
+						{# {{ render(controller('App\\Controller\\RegistrationController::registerView')) }} #}
+						<form name="register" action="{{ path('app_register') }}" method="post">
+							<div class="modal-body">
+								{% set value = '' %}
+								{% for message in app.flashes('registerError') %}
+									<div class="alert alert-danger">
+										{{ message }}
+									</div>
+								{% endfor %}
+								{% for message in app.flashes('registerUser') %}
+									{% set value = message %}
+								{% endfor %}
+								<label class="form-label required" for="email">{% trans %}front.login.email{% endtrans %}</label>
+								{% for message in app.flashes('errorEmail') %}
+									<div class="alert alert-danger">
+										{{ message }}
+									</div>
+								{% endfor %}
+								<input type="email" value="{{value}}" name="email" id="registerEmail" class="form-control" autocomplete="email" required autofocus>
+								<label class="form-label required" for="registerPassword">{% trans %}front.login.password{% endtrans %}</label>
+								{% for message in app.flashes('errorPassword') %}
+									<div class="alert alert-danger">
+										{{ message }}
+									</div>
+								{% endfor %}
+								<input type="password" name="registerPassword" id="registerPassword" class="form-control" autocomplete="current-password" required>
+								<p id="registration_form_password_first_help" class="form-text mb-0 help-text">Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character</p>
+								<label class="form-label required" for="confirmPassword">{% trans %}back.labels.confirmPassword{% endtrans %}</label>
+								<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" autocomplete="current-password" required>
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('register') }}">
+								{% include "admin_common/_admin_required_field.html.twig" %}
+							</div>
+							<div class="modal-footer justify-content-end">
+								<button type="submit" class="btn btn-lg btn-sub">{% trans %}front.login.register{% endtrans %}</button>
+							</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	{# alert #}
+	{% for label, messages in app.flashes %}
+		{% if label == "danger" or label == "success" %}
+			{% for message in messages %}
+				<div class="custom-alert col-12 col-md-6">
+					<div class="alert alert-{{ label }} alert-dismissible fade show">
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+		{# ------------------ jQuery ------------------- #}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		{# LightBox #}
+		<script src="{{ asset("js/lightbox.min.js") }}"></script>
+		{# ------------------ IONICONS ------------------- #}
+		<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		{# ------------------ MASONERY ------------------- #}
+		<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+		<script>
+			//open modal
+			$(document).ready(function(){
+
+				const urlParams = new URLSearchParams(window.location.search);
+				if (urlParams.has('modal')) {
+					$('#modalLogin').modal('show');
+					if (urlParams.get('modal') == 'register') {
+						$('#nav-register-tab').trigger('click');
+					}
+				}
+				if($(".custom-alert").length>0){
+					setTimeout(function(){
+						$(".custom-alert").fadeOut(500, function(){$(".custom-alert").remove() })
+					}, 3000);
+				}
+			});
+			// //register constraints
+			// $(document).ready(function(){
+			// 	registrationForm = $('form[name="registration_form"]')
+			// 	registrationForm.submit(function(e){
+			// 		e.preventDefault();
+			// 		var first = $('#registration_form_password_first').val();
+			// 		var first = $('#registration_form_password_second').val();
+			// 		console.log(first.length);
+					
+			// 	});
+			// });
+
+		</script>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.contact{% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_contact_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %}back.titles.contact{% endtrans %}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contact.id }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}back.labels.email{% endtrans %}</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}back.labels.subject{% endtrans %}</th>
+                <td>{{ contact.subject }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}back.labels.message{% endtrans %}</th>
+                <td>{{ contact.text }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}back.labels.createdAt{% endtrans %}</th>
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    {# <a href="{{ path('app_admin_contact_edit', {'id': contact.id}) }}">edit</a>
+
+    {{ include('admin_contact/_delete_form.html.twig') }} #}
+{% endblock %}

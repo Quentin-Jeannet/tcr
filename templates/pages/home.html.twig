@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Color Republic
+{% endblock %}
+
+{% block body %}
+	<div>
+		<video autoplay muted>
+			{% if home.currentTranslation.videoName is defined and home.currentTranslation.videoName is not null %}
+			<source src="{{asset('video/'~ home.currentTranslation.videoName)}}" type="video/mp4" id="video">			
+			{% else %}
+			<source src="{{asset('video/intro.mp4')}}" type="video/mp4" id="video">			
+			{% endif %}
+			Your browser does not support HTML video.
+		</video>
+	</div>
+	<div class="container mt-5">
+		<div class="d-flex flex-wrap">
+			<div class="col-lg-3 col-12 px-3 mb-2 mb-lg-0">
+				<img src="{{asset('images/category/' ~ home.currentTranslation.imageName)}}" alt="declaration" class="img-fluid">
+			</div>
+			<div class="col-lg-9 col-12 px-3">
+				<h1 class="">{{home.currentTranslation.text|capitalize}}</h1>
+				<div class="line"></div>
+				<div>{{home.currentTranslation.description|raw}}</div>
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

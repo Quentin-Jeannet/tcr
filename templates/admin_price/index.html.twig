@@ -1,0 +1,59 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.prices{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}back.titles.prices{% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+        <a href="{{ path('app_admin_price_new', { 'articleType': articleType }) }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th class="text-center">{% trans %}back.labels.price{% endtrans %}</th>
+                <th class="text-center">
+                {% if articleType == "paint" %}
+                    {% trans %}back.labels.liter{% endtrans %}
+                {% elseif articleType =="floor" %}
+                    {% trans %}back.labels.quantity{% endtrans %}
+                {% elseif articleType =="wall" %}
+                    {% trans %}back.labels.quantity{% endtrans %}
+                {% endif %}
+            </th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for price in prices %}
+            <tr>
+                <td>{{ price.id }}</td>
+                <td class="text-center">{{ price.price }} €</td>
+                <td class="text-center">
+                {% if articleType == "paint" %}
+                    {{ price.litre }}
+                {% elseif articleType =="floor" %}
+                    {{ price.quantity }}{{ price.mesure }}
+                {% elseif articleType =="wall" %}
+                    {{ price.quantity }}{{ price.mesure }}
+                {% endif %}
+                </td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_price_show', {'id': price.id}) }}" class="btn btn-primary mb-1 mb-md-0">
+							<i class="align-middle" data-feather="eye"></i></a> #}
+                    <a href="{{ path('app_admin_price_edit', {'id': price.id, 'articleType': articleType}) }}" class="btn btn-success">
+							<i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+    {{ knp_pagination_render(prices) }}
+    </div>
+{% endblock %}

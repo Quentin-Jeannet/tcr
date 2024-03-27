@@ -1,0 +1,9 @@
+<div class="nav-main-items d-flex flex-wrap justify-content-around">
+	{% for category in categories %}
+		<li class="nav-item nav-items ">
+			<a class="nav-link px-3" href="{{path('pages-category', {'slugCategory': category.currentTranslation.slug.text})}}">
+				<img src="{{asset('images/category/' ~ category.currentTranslation.imageName)}}" alt="{{category.currentTranslation.text}}" class="img-fluid-tcr">
+			</a>
+		</li>
+	{% endfor %}
+</div>

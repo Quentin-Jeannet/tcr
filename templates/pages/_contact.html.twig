@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.subject)}}
+    {{ form_label(form.text) }}
+    {{ form_widget(form.text) }}
+    {% include 'admin_common/_admin_required_field.html.twig' %}
+    {{ form_row(form.send)}}
+{{ form_end(form) }}

@@ -1,0 +1,56 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.users{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}back.titles.users{% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_user_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+        <a href="{{ path('app_admin_user_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %}back.labels.name{% endtrans %}</th>
+                <th>{% trans %}back.labels.firstname{% endtrans %}</th>
+                <th>{% trans %}back.labels.email{% endtrans %}</th>
+                <th>{% trans %}back.labels.role{% endtrans %}</th>
+                <th class="text-end">{% trans %}back.labels.actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if 'ROLE_USER' in user.roles and 'ROLE_ADMIN' not in user.roles %}
+                        {% trans %} back.labels.roleUser {% endtrans %}
+                    {% elseif 'ROLE_ADMIN' in user.roles and 'ROLE_SUPERADMIN' not in user.roles %}
+                        {% trans %} back.labels.roleAdmin {% endtrans %}
+                    {% elseif 'ROLE_SUPERADMIN' in user.roles %}
+                        {% trans %} back.labels.roleSuperAdmin {% endtrans %}
+                    {% endif %}
+                </td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-success">
+                <i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

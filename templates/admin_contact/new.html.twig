@@ -1,0 +1,11 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}New Contact{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_contact_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>Create new Contact</h1>
+
+    {{ include('admin_contact/_form.html.twig') }}
+
+{% endblock %}

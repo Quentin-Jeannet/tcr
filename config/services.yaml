@@ -1,0 +1,62 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    app.locales: [en, fr, nl]
+    app.numPerList: 15
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\EventEntityListener\ColorLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\Color', lazy: true}
+    App\EventEntityListener\ColorFamilyLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\ColorFamily', lazy: true}
+    App\EventEntityListener\CategoryLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\Category', lazy: true}
+    App\EventEntityListener\SubCategoryLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\SubCategory', lazy: true}
+    App\EventEntityListener\GoodiesLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\Goodies', lazy: true}
+    App\EventEntityListener\FinishLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\Finish', lazy: true}
+    App\EventEntityListener\ConfiguratorOptionLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\ConfiguratorOption', lazy: true}
+    App\EventEntityListener\ConfiguratorOrientationLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\ConfiguratorOrientation', lazy: true}
+    App\EventEntityListener\FloorLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\Floor', lazy: true}
+    App\EventEntityListener\FloorFamilyLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\FloorFamily', lazy: true}
+    App\EventEntityListener\FloorPatternLoadListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'postLoad', entity: 'App\Entity\FloorPattern', lazy: true}
+    app.namer.newSmartUniqueNamer:
+        class: App\Naming\NewSmartUniqueNamer
+        public: true

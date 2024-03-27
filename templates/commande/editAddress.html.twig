@@ -1,0 +1,29 @@
+{{form_start(formAddress)}}
+ <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">{% trans %}front.panier.commande.edit{% endtrans %}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row  px-2 my-3">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-md-2">{{form_row(formAddress.name)}}</div>
+                        <div class="col-12 col-md-6">{{form_row(formAddress.address)}}</div>
+                        <div class="col-12 col-md-4">{{form_row(formAddress.complement)}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-4">{{form_row(formAddress.zip)}}</div>
+                        <div class="col-12 col-md-4">{{form_row(formAddress.city)}}</div>
+                        <div class="col-12 col-md-4">{{form_row(formAddress.country)}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}front.panier.commande.back{% endtrans %}</button>
+            <button type="submit" class="btn btn-primary">{% trans %}front.panier.commande.save{% endtrans %}</button>
+        </div>
+        </div>
+
+{{form_end(formAddress)}}

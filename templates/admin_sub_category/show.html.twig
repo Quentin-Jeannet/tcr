@@ -1,0 +1,91 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}SubCategory
+{% endblock %}
+
+{% block body %}
+	<h1>SubCategory</h1>
+	<a href="{{ path('app_admin_sub_category_index') }}" class="btn btn-secondary">back to list</a>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		{% for lang in locales %}
+			<li class="nav-item" role="presentation">
+				<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}-tab" data-bs-toggle="tab" data-bs-target="#{{lang}}" type="button" role="tab" aria-controls="{{lang}}" aria-selected="true">{{lang}}</button>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="tab-content" id="myTabContent">
+		{% for lang in locales %}
+			<div class="tab-pane fade show {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}" role="tabpanel" aria-labelledby="{{lang}}-tab">
+				{% if sub_category.subCategoryTranslations is not null and sub_category.subCategoryTranslations|length > 0 %}
+					{% for s in sub_category.subCategoryTranslations %}
+						{% if (lang == s.lang) %}
+							<table class="table">
+								<tbody>
+									<tr>
+										<th rowspan="">Sub-category Title</th>
+										<td class="">{{s.title}}</td>
+									</tr>
+									<tr>
+										<th class="">Slug</th>
+										<td>{{s.slug}}</td>
+									</tr>
+									<tr>
+										<th>Description</th>
+										<td>{{ s.description|raw }}</td>
+									</tr>
+									{% if sub_category.categories is not null and sub_category.categories|length > 0 %}
+										<tr>
+											<th rowspan="">Sub-categories Titles</th>
+											<td class="">
+											{% for c in sub_category.categories %}
+											{% for t in c.categoryTranslations %}
+												{% if (lang == t.lang) %}
+													{{t.title}}</br>
+												{% endif %}
+											{% endfor %}
+											{% endfor %}
+											</td>
+										</tr>
+									{% endif %}
+								</tbody>
+							</table>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ sub_category.id }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td><img src="{{asset('images/subCategory/' ~ sub_category.imageName)}}" alt=""></td>
+			</tr>
+			<tr>
+				<th>Priority</th>
+				<td>{{sub_category.priority}}</td>
+			</tr>
+			<tr>
+				<th>Created At :</th>
+				<td>{{ sub_category.createdAt|date('Y-m-d H:i:s') }}</td>
+			</tr>
+			<tr>
+				<th>Updated At :</th>
+				<td>{{ sub_category.updatedAt ? sub_category.updatedAt|date('Y-m-d H:i:s') : ''  }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<a href="{{ path('app_admin_sub_category_edit', {'id': sub_category.id}) }}" class="btn btn-success">
+		<i class="align-middle" data-feather="edit"></i>
+	</a>
+
+	{{ include('admin_sub_category/_delete_form.html.twig') }}
+{% endblock %}

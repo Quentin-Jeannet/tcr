@@ -1,0 +1,11 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.newFloorPattern{% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_floor_pattern_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %}back.titles.newFloorPattern{% endtrans %}</h1>
+
+    {{ include('admin_floor_pattern/_form.html.twig') }}
+
+{% endblock %}

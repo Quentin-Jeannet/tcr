@@ -1,0 +1,26 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}FloorPrice{% endblock %}
+
+{% block body %}
+    <h1>FloorPrice</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ floor_price.id }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ floor_price.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_floor_price_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_floor_price_edit', {'id': floor_price.id}) }}">edit</a>
+
+    {{ include('admin_floor_price/_delete_form.html.twig') }}
+{% endblock %}

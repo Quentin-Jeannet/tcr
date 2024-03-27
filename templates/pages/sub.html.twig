@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{subCategory.currentTranslation.text|capitalize}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-5">
+		<div class="d-flex ">
+			<div class="col-3 px-3">
+				{% if image %}
+				<img src="{{asset('images/subCategory/' ~ image)}}" alt="category_title" class="img-fluid">
+				{% elseif category %}
+				<img src="{{asset('images/category/' ~ category.currentTranslation.imageName)}}" alt="category_title" class="img-fluid">
+				{% else %}
+				<img src="{{asset('images/logo/color-republic-logo-512.png')}}" alt="category_title" class="img-fluid">
+				{% endif %}
+			</div>
+			<div class="col-9 px-4">
+				<h1 class="title-declaration">{{subCategory.currentTranslation.text|capitalize}}</h1>
+				<div class="line"></div>
+				<div>
+					{% if subCategory.currentTranslation.description %}
+						{{subCategory.currentTranslation.description|raw}}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		{% if category %}
+		
+		{# {% include "pages/_colors.html.twig" %} #}
+		
+		{# {% set sub = app.request.pathInfo|split('/') %} #}
+
+		<h2 class="title-goodies">{% trans %}front.general.seeAlso{% endtrans %}</h2>
+		<div class="d-flex flex-wrap pt-2">
+			{% for sub in category.subCategories %}
+				{% if sub != subCategory %}
+					<div class="pb-2 me-3">
+						<a href="{{path('pages', {'slugCategory': category.currentTranslation.slug.text, 'slugSubCategory': sub.currentTranslation.slug.text})}}" class="btn btn-sub">{{sub.currentTranslation.text|capitalize}}</a>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+
+		{% endif %}
+		
+	</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset('js/colorFamilySelector.js')}}"></script>
+{% endblock %}

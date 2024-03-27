@@ -1,0 +1,36 @@
+{{ form_start(registrationForm) }}
+    <div class="modal-body">
+        <div class="row g-0">
+            <div class="col-12 ">
+                {{ form_label(registrationForm.email) }}
+
+                {% for message in app.flashes('errorEmail') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {{ form_widget(registrationForm.email) }}
+            </div> 
+            <div class="col-12">
+                {{ form_label(registrationForm.password.first) }}
+                {% for message in app.flashes('errorPassword') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {{ form_widget(registrationForm.password.first) }}
+                {{ form_help(registrationForm.password.first) }}
+
+            </div>
+            <div class="col-12">
+                {{ form_row(registrationForm.password.second) }}
+            </div>
+            {# {{ form_row(registrationForm._csrf_token) }} #}
+        </div>
+    </div>  
+    <div class="modal-footer justify-content-end">
+        <button class="btn btn-lg btn-sub" type="submit">{% trans %}front.login.register{% endtrans %}</button>
+    </div>
+{{ form_end(registrationForm) }}
+
+

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter{% endblock %}
+
+{% block body %}
+    <h1>Newsletter</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ newsletter.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ newsletter.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ newsletter.description }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ newsletter.imageName }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_newsletter_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_newsletter_edit', {'id': newsletter.id}) }}">edit</a>
+
+    {{ include('admin_newsletter/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,7 @@
+fos_ck_editor:
+  input_sync: true
+  configs:
+    generic_config:
+      toolbar: [ ["Source", "CodeSnippet"], ["Bold", "Italic", "Underline", 'Strike', 'Subscript', 'Superscript'], ['NumberedList', 'BulletedList'], ['Outdent', 'Indent'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] ,['Link', 'Unlink'], ['Image', 'Smiley', 'SpecialChar'], "/", ['Styles', 'Format', 'Font', 'FontSize'], ['TextColor', 'BGColor']git ]
+      filebrowserBrowseRoute: elfinder
+      filebrowserBrowseRouteParameters: []

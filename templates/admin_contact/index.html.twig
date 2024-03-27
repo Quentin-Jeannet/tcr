@@ -1,0 +1,52 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.contacts{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <h1>{% trans %}back.titles.contacts{% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_contact_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+	</div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %} back.labels.email {% endtrans %}</th>
+                <th>{% trans %} back.labels.subject {% endtrans %}</th>
+                {# <th>Text</th> #}
+                <th>{% trans %} back.labels.createdAt {% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.subject }}</td>
+                {# <td>{{ contact.text }}</td> #}
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_admin_contact_show', {'id': contact.id}) }}" class="btn btn-dark mb-1 mb-md-0">
+                <i class="align-middle" data-feather="eye"></i></a>
+                    {# <a href="{{ path('app_admin_contact_edit', {'id': contact.id}) }}">edit</a> #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+    {{ knp_pagination_render(contacts) }}
+    </div>
+    {# <a href="{{ path('app_admin_contact_new') }}">Create new</a> #}
+{% endblock %}

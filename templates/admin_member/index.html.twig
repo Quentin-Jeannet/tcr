@@ -1,0 +1,47 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.newsLetterMembers{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}back.titles.newsLetterMembers{% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_member_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+        <a href="{{ path('app_admin_member_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+        <a href="{{ path('app_admin_member_export') }}" class="btn btn-success ms-2"><i class="align-middle" data-feather="file-text"></i></a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %}back.labels.firstname{% endtrans %}</th>
+                {# <th>ValidationToken</th> #}
+                {# <th>IsValid</th> #}
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.email }}</td>
+                {# <td>{{ member.validationToken }}</td> #}
+                {# <td>{{ member.isValid ? 'Yes' : 'No' }}</td> #}
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_member_show', {'id': member.id}) }}">show</a> #}
+                    {# <a href="{{ path('app_admin_member_edit', {'id': member.id}) }}"></a> #}
+                    {% include 'admin_member/_delete_form.html.twig' %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.newFloorPrice{% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_floor_price_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %}back.titles.newFloorPrice{% endtrans %}</h1>
+
+    {{ include('admin_floor_price/_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(".select2").select2();
+</script>
+{% endblock %}

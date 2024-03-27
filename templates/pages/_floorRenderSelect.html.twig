@@ -1,0 +1,9 @@
+<select class="floorPriceRenderSelect" id="floor-render-select">
+{% for price in prices %}
+    {% if loop.index0 == 0 %}
+    <option value="{{ price.floorRender.id }}" selected="selected">{{ price.floorRender.name }}</option>
+    {% else %}
+    <option value="{{ price.floorRender.id }}" >{{ price.floorRender.name }}</option>
+    {% endif %}
+{% endfor %}
+</select>

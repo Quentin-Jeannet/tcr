@@ -1,0 +1,10 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.newColorFamily {% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_color_family_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %} back.titles.newColorFamily {% endtrans %}</h1> 
+    {{ include('admin_color_family/_form.html.twig') }}
+
+{% endblock %}

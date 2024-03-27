@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommandeController!{% endblock %}
+
+{% block body %}
+{% if addresses is defined and addresses|length > 0 %}
+<div class="container my-3 p-3">
+
+    <div>
+        <h1 class="title-declaration">{% trans %}front.panier.commande.title{% endtrans %}</h1>
+        <div class="line"></div>
+    </div>
+    {{form_start(form)}}
+    <div class="row justify-content-between" id="commande">
+        <div class="col-12 col-md-8 px-2">
+            <div class="bg-commande px-4 py-2 mb-5">
+                <h4 class="py-2">{% trans %}front.panier.commande.adresses{% endtrans %}</h4>
+                <div class="d-flex justify-content-between">
+                    <h5>{% trans %}front.panier.commande.deliveryAddress{% endtrans %}</h5>
+                    <a href="" class="text-black-50 fw-semibold" data-bs-toggle="modal" data-bs-target="#addressModal" data-bs-address="livraison" data-bs-title="{% trans %}front.panier.commande.deliveryAddress{% endtrans %}">{% trans %}front.panier.commande.edit{% endtrans %}</a>
+                </div>
+                <span id="livraison" class="text-black-50 fw-semibold">{{livraison.name}} : {{livraison.address}}, {{livraison.complement ? livraison.complement ~', ' : ''}}{{livraison.zip}} {{livraison.city}}, {{livraison.country|country_name}}</span>
+                <hr class="mt-1">
+                <div class="d-flex justify-content-between">
+                    <h5>{% trans %}front.panier.commande.billingAddress{% endtrans %}</h5>
+                    <a href="" class="text-black-50 fw-semibold" data-bs-toggle="modal" data-bs-target="#addressModal" data-bs-address="facturation" data-bs-title="{% trans %}front.panier.commande.billingAddress{% endtrans %}">{% trans %}front.panier.commande.edit{% endtrans %}</a>
+
+                </div>
+                <span id="facturation" class="text-black-50 fw-semibold">{{facturation.name}} : {{facturation.address}}, {{facturation.complement ? facturation.complement ~', ' : ''}}{{facturation.zip}} {{facturation.city}}, {{facturation.country|country_name}}</span>
+                <hr class="mt-1">
+            </div>
+            <div class="bg-commande px-4 py-2">
+                <h4 class="py-2">{% trans %}front.panier.commande.deliveryOptions{% endtrans %}</h4>
+                {% if deliveries is defined and deliveries|length > 0 %}
+                    {% set i = 0 %}
+                    {% for delivery in form.delivery %}
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            {{form_widget(delivery)}}
+                            <span><span>{{deliveries[i].price|number_format(2)}}</span> €</span>
+                        </div>
+                        <span class="text-black-50 fw-semibold delivery-address">{{livraison.name}} : {{livraison.address}}, {{livraison.complement ? livraison.complement ~', ' : ''}}{{livraison.zip}} {{livraison.city}}, {{livraison.country|country_name}}</span>
+                        <hr class="mt-1">
+                    </div>
+                        {% set i = i + 1 %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="bg-commande py-4 px-4">
+                <h4 class="pb-4">{% trans %}front.panier.commande.summary{% endtrans %}</h4>
+                <div class="d-flex justify-content-between">
+                    <p class="fw-bold">{% trans %}front.panier.commande.commande{% endtrans %}</p>
+                    <p><span id="commande-price">{{total|number_format(2)}}</span> €</p>  
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="fw-bold">{% trans %}front.panier.commande.delivery{% endtrans %}</p>
+                    <p id="delivery-price">{{delivery != null ? delivery.price|number_format(2)~' €' : '{% trans %}front.panier.commande.noDelivery{% endtrans %]'}} </p>  
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold text-uppercase">{% trans %}front.panier.commande.total{% endtrans %}</span>
+                    <p class="fw-bold" id="total-price">{{delivery != null ? (delivery.price + total)|number_format(2)~' €': '{% trans %}front.panier.commande.noDelivery{% endtrans %}'}} </p>  
+                </div>
+                <div class="d-flex justify-content-end pt-5">
+                    <button type="submit" class="btn btn-primary">{% trans %}front.panier.commande.pay{% endtrans %}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalLivraison">
+                    {% set i = 0 %}
+                    {% for address in form.adresseLivraison %}
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            {{form_widget(address)}}
+                            <a href="" class="text-black-50 fw-semibold edit-address" data-id="{{addresses[i].id}}">{% trans %}front.panier.commande.edit{% endtrans %}</a>
+                        </div>
+                        <span class="text-black-50 fw-semibold input-address">{{addresses[i].address}}, {{addresses[i].complement ? addresses[i].complement ~', ' : ''}}{{addresses[i].zip}} {{addresses[i].city}}, {{addresses[i].country|country_name}}</span>
+                        <hr class="mt-1">
+                    </div>
+                    {% set i = i + 1 %}
+                    {% endfor %}
+                </div>
+                <div id="modalFacturation">
+                    {% set i = 0 %}
+                    {% for address in form.adresseFacturation %}
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            {{form_widget(address)}}
+                            <a href="" class="text-black-50 fw-semibold edit-address" data-id="{{addresses[i].id}}" >{% trans %}front.panier.commande.edit{% endtrans %}</a>
+                        </div>
+                        <span class="text-black-50 fw-semibold input-address">{{addresses[i].address}}, {{addresses[i].complement ? addresses[i].complement ~', ' : ''}}{{addresses[i].zip}} {{addresses[i].city}}, {{addresses[i].country|country_name}}</span>
+                        <hr class="mt-1">
+                    </div>
+                    {% set i = i + 1 %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{% trans %}front.panier.commande.valid{% endtrans %}</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    {{form_end(form)}}
+
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       
+    </div>
+</div>
+
+
+
+
+
+
+
+    
+    {% else %}
+    <div class="d-flex justify-content-center py-3">
+        <a href="{{path('profile', {'address' : 'true'})}}">toto</a>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        $('#addressModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var title= button.data('bs-title') // Extract info from data-* attributes
+            $(this).find('.modal-title').text(title)
+            var address = button.data('bs-address')
+            if (address == 'livraison') {
+                $('#modalLivraison').show()
+                $('#modalFacturation').hide()
+            } else {
+                $('#modalLivraison').hide()
+                $('#modalFacturation').show()
+            }
+        })
+    });
+$(document).on('change','input[name="commande[adresseLivraison]"]' ,function() {
+
+    changeAddress()
+});
+
+$(document).on('change', 'input[name="commande[adresseFacturation]"]',function() {
+
+    let newString = $(this).parent().find('label').text() + ' : ' + $(this).parent().parent().parent().find('span.input-address').text() ;
+    $('#facturation').text(newString);
+    
+});
+
+$(document).on('change','input[name="commande[delivery]"]' ,function() {
+
+    let price = $(this).parent().parent().find('span').find('span').text();
+    let commande = $('#commande-price').text();
+    newPrice = parseFloat(commande) + parseFloat(price);
+    $('#delivery-price').text(price +' €');
+    $('#total-price').text(newPrice.toFixed(2) + ' €');
+});
+
+
+// $('.edit-address').each(function() {
+    $(document).on('click','.edit-address' ,function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $('input[name="commande[adresseLivraison]"][value= '+ id + ']').prop('checked', true).trigger('change');
+        $.ajax({
+            url: "{{path('app_edit_address', {'id' : 'XX'})}}".replace('XX', id),
+            type: 'POST',
+            data: {
+                'id' : id,
+                'livraison' : $('input[name="commande[adresseLivraison]"]').val(),
+                'facturation' : $('input[name="commande[adresseFacturation]"]').val(),
+            },
+
+        }).done(
+            function(data) {
+                $('#editModal').modal('show');
+                $('#editModal').find('.modal-dialog').html(data)
+                // console.log(data);
+            }
+        );
+    });
+// });
+
+$(document).on('submit', '#formAddress', function(e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+    }).done(
+        function(data)
+        {
+            $('#editModal').modal('hide');
+            changeAddress();
+
+        }
+    );
+});
+
+function changeAddress() {
+    var adresseLivraison = $('input[name="commande[adresseLivraison]"]:checked').val();
+    var adresseFacturation = $('input[name="commande[adresseFacturation]"]:checked').val();
+    var delivery = $('input[name="commande[delivery]"]:checked').val();
+    $.ajax({
+        url: "{{path('app_commande_show')}}",
+        type: 'POST',
+        data: {
+            'adresseLivraison' : adresseLivraison,
+            'adresseFacturation' : adresseFacturation,
+            'delivery' : delivery
+        },
+    }).done(
+        function(data) {
+            $('#commande').html($(data).find('#commande'))
+            $('#modalLivraison').html($(data).find('#modalLivraison'))
+            $('#modalFacturation').html($(data).find('#modalFacturation'))
+        }
+    );
+}
+</script>
+    
+{% endblock %}

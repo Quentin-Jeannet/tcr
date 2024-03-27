@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="background-color:rgba(255, 255, 255, 0.1);font-family:'Arial';width: 965px;">
+    <div style="background-color: white;width: 965px;">
+        <img src="{{ email.image('@images/logo/color-republic-logo.png') }}" alt="" style="width: 100%;">
+
+        <div style="padding: 0 70px; margin-top: 50px;">
+
+            <div style="">
+
+                <h1 style="text-align: center;margin: 30px 0;font-weight:bold">{{thanks}}</h1>
+
+                <p style="text-align: center;margin: 30px 0">{{welcome}}</p>
+                <p style="text-align: center;margin: 30px 0">{{message}}</p>
+                <p style="text-align: center;margin: 30px 0">
+                    <a rel="noopener" target="_blank" href="{{signedUrl}}" style="background-color: #20404B;text-decoration: none; padding: 8px 0; color: #ffffff; display: inline-block; mso-padding-alt: 0; width:250px;border-raduis : 10px;">
+                        <!--[if mso]>
+                    <i style="letter-spacing: 73.5px; mso-font-width: -100%; mso-text-raise: 15pt;">&nbsp;</i>
+                    <![endif]-->
+                        <span style="mso-text-raise: 7.5pt;">{{confirm}}</span>
+                        <!--[if mso]>
+                    <i style="letter-spacing: 73.5px; mso-font-width: -100%;">&nbsp;</i>
+                    <![endif]-->
+                    </a>
+                </p>
+                <p style="text-align: center;margin: 30px 0">{{expire}} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+                
+            </div>
+
+
+    </div>
+
+</body>
+
+</html>

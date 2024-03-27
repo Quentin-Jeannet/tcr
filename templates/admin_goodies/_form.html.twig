@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+<fieldset class="bg-white p-3 mb-3">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	{% set locales  = form.vars["value"].locales %}
+	{% for locale  in locales %}
+		<li class="nav-item" role="presentation">
+			<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{locale}}-tab" data-bs-toggle="tab" data-bs-target="#{{locale}}" type="button" role="tab" aria-controls="{{locale}}" aria-selected="true">{{locale}}</button>
+		</li>
+	{% endfor %}
+</ul>
+<div class="tab-content" id="myTabContent">
+	{% for locale  in locales %}
+		<div class="tab-pane fade border border-start border-end border-bottom p-3 show {{loop.index0 == 0 ? 'active' : ''}}" id="{{locale}}" role="tabpanel" aria-labelledby="{{locale}}-tab">
+				{{ form_row(form["translation_" ~ locale]) }}
+		</div>
+	{% endfor %}
+</div>
+
+<div style="width: 500px">
+	{% if goody.imageName %}
+		<div class="text-end">
+			<a href="{{ path('remove-image', {"id": goody.id})}}" class="text-dark p-1">
+				<i class="close-icon" data-feather="x-circle" title="Supprimer"></i>
+			</a>
+		</div>
+
+	{% endif %}
+	<img src="{{asset('images/goodies/' ~ goody.imageName)}}" alt="{{goody.imageName}}" class="img-fluid">
+	{{ form_row(form.imageFile) }}
+</div>
+{{ form_row(form.price) }}
+{% include 'admin_common/_admin_required_field.html.twig' %}
+</fieldset>
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

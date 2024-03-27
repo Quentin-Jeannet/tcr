@@ -1,0 +1,49 @@
+.img-index{
+    width: 100px;
+}
+.img-show{
+    width: 200px;
+}
+#myTab{
+    margin-top: 10px;
+}
+.square-color{
+    width: 60px;
+    height: 40px;
+    display: inline-block;
+    border:1px solid #ccc;
+}
+.form-switch{
+    padding-left:1em;
+}
+.form-check.form-switch-category{
+    display: inline-block;
+}
+.tdId{
+    width:80px;
+}
+label.required::after{
+    content: "*";
+    color: red;
+    margin-left: 5px;
+}
+.required-field{
+    color: red;
+    font-size:0.8rem;
+    font-style: italic;
+    margin-top:0.5rem;
+    display: inline-block;
+}
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+}
+.page-link {
+    color: #212529;
+}
+.page-link:hover {
+    color: #212529;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}

@@ -1,0 +1,26 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}FloorPriceLength{% endblock %}
+
+{% block body %}
+    <h1>FloorPriceLength</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ floor_price_length.id }}</td>
+            </tr>
+            <tr>
+                <th>Length</th>
+                <td>{{ floor_price_length.length }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_floor_price_length_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_floor_price_length_edit', {'id': floor_price_length.id}) }}">edit</a>
+
+    {{ include('admin_floor_price_length/_delete_form.html.twig') }}
+{% endblock %}

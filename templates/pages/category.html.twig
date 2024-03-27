@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{category.currentTranslation.text}}
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('build/app.css')}}">
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-5">
+		<div class="d-flex flex-wrap">
+			<div class="col-lg-3 col-12 px-3 mb-2 mb-lg-0">
+				<img src="{{asset('images/category/' ~ category.currentTranslation.imageName)}}" alt="category_title" class="img-fluid">
+			</div>
+			<div class="col-lg-9 col-12 px-3">
+				{% include '_messages.html.twig' %}
+				<h1 class="title-declaration">{{category.currentTranslation.text|capitalize}}</h1>
+				<div class="line"></div>
+				<div>{{category.currentTranslation.description|raw}}
+				{% if contact is defined and contact is not null %}
+			{% include "pages/_contact.html.twig" %}
+		{% endif %}
+				</div>
+			</div>
+		</div>
+
+		{% if colors is defined and colors is not null %}
+			{% include "pages/_colors.html.twig" %}
+		{% endif %}
+
+		{% if floors is defined and floors is not null %}
+			{% include "pages/_floors.html.twig" %}
+		{% endif %}
+
+		{% if goodies is defined and goodies is not null %}
+			{% include "pages/_goodies.html.twig" %}
+		{% endif %}
+
+		
+
+		{% if configurator is defined and configurator is not null %}
+			{% include "pages/_configurator.html.twig" %}
+		{% endif %}
+
+
+		
+		{% if category.subCategories|length > 0 %}
+		<h2 class="title-goodies">{% trans %}front.general.seeAlso{% endtrans %}</h2>
+		<div class="d-flex flex-wrap pt-2">
+			{% for subCategorie in category.subCategories %}
+				{% if category.currentTranslation.slug is not null %}
+				<div class="pb-2 me-3">
+					<a href="{{path('pages', {'slugCategory': category.currentTranslation.slug.text, 'slugSubCategory': subCategorie.currentTranslation.slug.text})}}" class="btn btn-sub">{{subCategorie.currentTranslation.text|capitalize}}</a>
+				</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+
+{% include "pages/_modalPanier.html.twig" %}
+{% endblock %}
+{% block javascripts %}
+
+{% if (colors is defined and colors is not null) or (floors is defined and floors is not null) %}
+	<script src="{{asset('js/colorFamilySelector.js')}}"></script>
+{% endif %}
+
+
+
+
+{% if goodies is defined and goodies is not null %}
+	<script>
+		$('.add-to-cart').on("click", function (e) {
+		e.preventDefault();
+		var goodiesId = $(this).data('id');
+
+
+		$.ajax({
+			url: '/panier/ajouter/goodies',
+			type: 'POST',
+			data: "&goodies=" + goodiesId + "&type=goodies"
+		}).done(function (response) {
+			$('#panierModal').modal('show');
+			$('#panierModal').find('.modal-dialog').addClass('modal-lg');
+			$('#panierModal').find('.modal-body').html(response);
+		});
+
+	});
+		$(document).on("click", '.add-recommanded-goody-to-cart' ,function (e) {
+		e.preventDefault();
+		$('#panierModal').modal('hide');
+		var goodiesId = $(this).data('id');
+
+
+		$.ajax({
+			url: '/panier/ajouter/goodies',
+			type: 'POST',
+			data: "&goodies=" + goodiesId + "&type=goodies"
+		}).done(function (response) {
+			$('#panierModal').modal('show');
+			$('#panierModal').find('.modal-dialog').addClass('modal-lg');
+			$('#panierModal').find('.modal-body').html(response);
+		});
+
+	});
+	</script>
+{% endif %}
+
+
+{% endblock %}

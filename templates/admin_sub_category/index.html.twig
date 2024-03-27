@@ -1,0 +1,51 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.subCategories{% endtrans %}{% endblock %}
+
+{% block body %}
+	<h1>{% trans %}back.titles.subCategories{% endtrans %}</h1>
+	<div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_sub_category_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+		<a href="{{ path('app_admin_sub_category_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th class="text-center">{% trans %} back.labels.picture {% endtrans %}</th>
+				<th >{% trans %}back.labels.name{% endtrans %}</th>
+				<th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for sub_category in sub_categories %}
+				<tr>
+					<td>{{ sub_category.id }}</td>
+					<td class="col-md-2"><a href="{{asset('images/subCategory/' ~ sub_category.imageName)}}" data-lightbox="{{sub_category.imageName}}"><img src="{{asset('images/subCategory/' ~ sub_category.imageName)}}" alt="" class="img-fluid"></a></td>
+					<td >
+						{% for translation in sub_category.translations %}
+							{{ translation.locale == 'en' ? translation.text}}
+						{% endfor %}
+					</td>
+					<td class="text-end">
+						<a href="{{ path('app_admin_sub_category_edit', {'id': sub_category.id}) }}" class="btn btn-success">
+							<i class="align-middle" data-feather="edit"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="navigation">
+    {{ knp_pagination_render(sub_categories) }}
+    </div>
+{% endblock %}

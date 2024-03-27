@@ -1,0 +1,9 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.newGoodies {% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_goodies_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %} back.titles.newGoodies {% endtrans %}</h1>
+    {{ include('admin_goodies/_form.html.twig') }}
+{% endblock %}

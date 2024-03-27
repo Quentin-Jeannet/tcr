@@ -1,0 +1,17 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.newFloor{% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_floor_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %}back.titles.newFloor{% endtrans %}</h1>
+    {{ include('admin_floor/_form.html.twig') }}
+
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/add-photo-colors.js')}}"></script>
+<script>
+    // Select2
+    $('.select2').select2();
+</script>
+{% endblock %}

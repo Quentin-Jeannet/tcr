@@ -1,0 +1,160 @@
+<nav id="sidebar" class="sidebar js-sidebar">
+	<div class="sidebar-content js-simplebar">
+		<a class="sidebar-brand" href="{{path('home', {'slugCategory': "{{ render(controller('App\\Controller\\PagesController::getSlugHome')) }}"})}}">
+			<span class="align-middle">Colour Republic</span>
+		</a>
+		<ul class="sidebar-nav">
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{path('home')}}" target="new">
+					<i class="align-middle" data-feather="share-2"></i>
+					<span class="align-middle">{% trans %}back.ctas.goToSite{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ dashboardActive }}">
+				<a class="sidebar-link" href="{{path('admin')}}">
+					<i class="align-middle" data-feather="sliders"></i>
+					<span class="align-middle">Dashboard</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ contactActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_contact_index')}}">
+					<i class="align-middle" data-feather="mail"></i>
+					<span class="align-middle">{% trans %}back.titles.contacts{% endtrans %}</span>{{ render(controller('App\\Controller\\AdminContactController::getTotalUnreadContact'))}}
+				</a>
+			</li>
+
+
+			<li class="sidebar-item {{ userActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_user_index')}}">
+					<i class="align-middle" data-feather="users"></i>
+					<span class="align-middle">{% trans %}back.ctas.users{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ memberActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_member_index')}}">
+					<i class="align-middle" data-feather="send"></i>
+					<span class="align-middle">{% trans %}back.ctas.newsletter{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ networkActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_social_network_index')}}">
+					<i class="align-middle" data-feather="share-2"></i>
+					<span class="align-middle">{% trans %}back.ctas.socialNetwork{% endtrans %}</span>
+				</a>
+			</li>
+			
+			<li class="sidebar-header">
+				{% trans %} back.titles.paint {% endtrans %}
+			</li>
+
+			<li class="sidebar-item {{ colorActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_color_index')}}">
+					<i class="align-middle" data-feather="disc"></i>
+					<span class="align-middle">{% trans %}back.titles.colors{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ colorFamilyActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_color_family_index')}}">
+					<i class="align-middle" data-feather="package"></i>
+					<span class="align-middle">{% trans %} back.labels.colorFamily {% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ pricePaintActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_price_paint_index')}}">
+					<i class="align-middle" data-feather="dollar-sign"></i>
+					<span class="align-middle">{% trans %}back.ctas.price{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-header">
+				{% trans %} back.titles.floor {% endtrans %}
+			</li>
+
+			<li class="sidebar-item {{ floorActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_floor_index')}}">
+					<i class="align-middle" data-feather="box"></i>
+					<span class="align-middle">{% trans %} back.titles.floors {% endtrans %}</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ floorFamilyActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_floor_family_index')}}">
+					<i class="align-middle" data-feather="box"></i>
+					<span class="align-middle">{% trans %} back.titles.floorFamilies {% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ priceFloorActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_floor_price_index')}}">
+					<i class="align-middle" data-feather="dollar-sign"></i>
+					<span class="align-middle">{% trans %}back.ctas.price{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ priceFloorActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_floor_price_length_index')}}">
+					<i class="align-middle" data-feather="tool"></i>
+					<span class="align-middle">{% trans %}back.ctas.floorWidth{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ priceFloorActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_floor_pattern_index')}}">
+					<i class="align-middle" data-feather="wind"></i>
+					<span class="align-middle">{% trans %}back.ctas.floorPattern{% endtrans %}</span>
+				</a>
+			</li>
+
+
+			<li class="sidebar-header">
+				{% trans %} back.titles.wall {% endtrans %}
+			</li>
+
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="">
+					<i class="align-middle" data-feather="box"></i>
+					<span class="align-middle">Coming soon</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ priceWallActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_price_wall_index')}}">
+					<i class="align-middle" data-feather="dollar-sign"></i>
+					<span class="align-middle">{% trans %}back.ctas.price{% endtrans %}</span>
+				</a>
+			</li>
+
+			<li class="sidebar-header">
+				{% trans %} back.titles.goodies {% endtrans %}
+			</li>
+
+			<li class="sidebar-item {{ goodiesActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_goodies_index')}}">
+					<i class="align-middle" data-feather="gift"></i>
+					<span class="align-middle">{% trans %} back.titles.goodies {% endtrans %}</span>
+				</a>
+			</li>
+			<li class="sidebar-header">
+				{% trans %}back.titles.content{% endtrans %}
+			</li>
+
+			<li class="sidebar-item {{ categoryActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_category_index')}}">
+					<i class="align-middle" data-feather="clipboard"></i>
+					<span class="align-middle">Category</span>
+				</a>
+			</li>
+
+			<li class="sidebar-item {{ subCategoryActive }}">
+				<a class="sidebar-link" href="{{path('app_admin_sub_category_index')}}">
+					<i class="align-middle" data-feather="tag"></i>
+					<span class="align-middle">Sub category</span>
+				</a>
+			</li>
+	</div>
+</nav>

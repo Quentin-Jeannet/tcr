@@ -1,0 +1,41 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        users:
+            uri_prefix: /images/users
+            upload_destination: '%kernel.project_dir%/public/images/users'
+            namer: app.namer.newSmartUniqueNamer
+        carouselImages:
+            uri_prefix: /images/carouselImages
+            upload_destination: '%kernel.project_dir%/public/images/carouselImages'
+            namer: app.namer.newSmartUniqueNamer
+        articles:
+            uri_prefix: /images/articles
+            upload_destination: '%kernel.project_dir%/public/images/articles'
+            namer: app.namer.newSmartUniqueNamer
+        subCategory:
+            uri_prefix: /images/subCategory
+            upload_destination: '%kernel.project_dir%/public/images/subCategory'
+            namer: app.namer.newSmartUniqueNamer
+        category:
+            uri_prefix: /images/category
+            upload_destination: '%kernel.project_dir%/public/images/category'
+            inject_on_load: true
+            namer: app.namer.newSmartUniqueNamer
+        goodies:
+            uri_prefix: /images/goodies
+            upload_destination: '%kernel.project_dir%/public/images/goodies'
+            namer: app.namer.newSmartUniqueNamer
+        colorImages:
+            uri_prefix: /images/colorImages
+            upload_destination: '%kernel.project_dir%/public/images/colorImages'
+            namer: app.namer.newSmartUniqueNamer
+        categoryVideo:
+            uri_prefix: /video
+            upload_destination: '%kernel.project_dir%/public/video'
+            namer: app.namer.newSmartUniqueNamer
+        floor:
+            uri_prefix: /images/floor
+            upload_destination: '%kernel.project_dir%/public/images/floor'
+            namer: app.namer.newSmartUniqueNamer

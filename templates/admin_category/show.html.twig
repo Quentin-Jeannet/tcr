@@ -1,0 +1,93 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block body %}
+	<h1>Category</h1>
+
+	<a href="{{ path('app_admin_category_index') }}" class="btn btn-secondary">back to list</a>
+
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		{% for lang in locales %}
+			<li class="nav-item" role="presentation">
+				<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}-tab" data-bs-toggle="tab" data-bs-target="#{{lang}}" type="button" role="tab" aria-controls="{{lang}}" aria-selected="true">{{lang}}</button>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="tab-content" id="myTabContent">
+		{% for lang in locales %}
+			<div class="tab-pane fade show {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}" role="tabpanel" aria-labelledby="{{lang}}-tab">
+				{% if category.categoryTranslations is not null and category.categoryTranslations|length > 0 %}
+					{% for c in category.categoryTranslations %}
+						{% if (lang == c.lang) %}
+							<table class="table">
+								<tbody>
+									<tr>
+										<th class="col-3">Image</th>
+										<td>
+											<div class="col-2"><img src="{{asset('images/category/' ~ c.imageName)}}" alt="" class="img-fluid"></div>
+										</td>
+									</tr>
+									<tr>
+										<th rowspan="">Category Title</th>
+										<td class="">{{c.title}}</td>
+									</tr>
+									<tr>
+										<th class="">Slug</th>
+										<td>{{c.slug}}</td>
+									</tr>
+									<tr>
+										<th>Description</th>
+										<td>{{ c.description|raw }}</td>
+									</tr>
+									{% if category.subCategories is not null and category.subCategories|length > 0 %}
+										<tr>
+											<th rowspan="">Sub-categories Titles</th>
+											<td class="">
+											{% for s in category.subCategories %}
+											{% for t in s.subCategoryTranslations %}
+												{% if (lang == t.lang) %}
+													{{t.title}}</br>
+												{% endif %}
+											{% endfor %}
+											{% endfor %}
+											</td>
+										</tr>
+									{% endif %}
+								</tbody>
+							</table>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th class="col-3">Id</th>
+				<td>{{ category.id }}</td>
+			</tr>
+			<tr>
+				<th>Priority</th>
+				<td>{{ category.priority }}</td>
+			</tr>
+			<tr>
+				<th>Created At :</th>
+				<td>{{ category.createdAt|date('d-m-Y H:i:s') }}</td>
+			</tr>
+			<tr>
+				<th>Updated At :</th>
+				<td>{{ category.updatedAt ? category.updatedAt|date('d-m-Y H:i:s') : ''  }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success">
+		<i class="align-middle" data-feather="edit"></i>
+	</a>
+	{{ include('admin_category/_delete_form.html.twig') }}
+{% endblock %}

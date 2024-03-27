@@ -1,0 +1,15 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.editCategory {% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_category_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <div class="d-flex justify-content-between">
+    <h1>{% trans %} back.titles.editCategory {% endtrans %}</h1>
+    {{ include('admin_category/_delete_form.html.twig') }}
+    </div>
+    {{ include('admin_category/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+    
+{% endblock %}

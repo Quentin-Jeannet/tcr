@@ -1,0 +1,53 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.colorFamily {% endtrans %}{% endblock %}
+
+{% block body %}
+	<h1>{% trans %} back.titles.colorFamily {% endtrans %}</h1>
+	<div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_color_family_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+		<a href="{{ path('app_admin_color_family_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th class="tdId">Id</th>
+				<th>{% trans %} back.labels.name {% endtrans %}</th>
+				<th class="text-center">{% trans %} back.labels.active {% endtrans %}</th>
+				<th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for colorFamily in colorFamilies %}
+				<tr>
+					<td class="tdId">{{ colorFamily.id }}</td>
+					<td>
+						{{colorFamily.displayName}}
+					</td>
+					<td class="text-center">{{ colorFamily.active ? 'Yes' : 'No' }}</td>
+					<td class="text-end">
+						{# <a href="{{ path('app_admin_color_family_show', {'id': colorFamily.id}) }}" class="btn btn-primary mb-1 mb-md-0">
+							<i class="align-middle" data-feather="eye"></i></a> #}
+							<a href="{{ path('app_admin_color_family_edit', {'id': colorFamily.id}) }}" class="btn btn-success">
+								<i class="align-middle" data-feather="edit"></i></a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="5">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+						</tr>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</tbody>
+	</table>
+    <div class="navigation">
+    {{ knp_pagination_render(colorFamilies) }}
+    </div>
+{% endblock %}

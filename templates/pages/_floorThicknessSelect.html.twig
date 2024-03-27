@@ -1,0 +1,11 @@
+<div class="d-flex flex-wrap">
+	{% for price in prices %}
+	{% set classActive = "button-active" %}
+	{% if loop.index0 > 0 %}
+	{% set classActive = "" %}
+	{% endif %}
+	<div class="finish family-button me-2 mb-1 {{ classActive }}" data-id="{{ price.floorThickness.id}}">
+		<span>{{ price.floorThickness.thickness}}&nbsp;mm</span>
+	</div>
+	{% endfor %}
+</div>

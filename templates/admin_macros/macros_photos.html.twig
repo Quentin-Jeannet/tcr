@@ -1,0 +1,12 @@
+{% macro renderPhotoWidget(photo) %}
+
+    
+        {% for key, value in photo.vars.form %}
+            <div class="col-11 align-self-center">
+            {{ form_row(value)}}
+            </div>
+            {% endfor %}
+            <div class="col-1 delete-div align-self-center"></div>
+   
+
+{% endmacro %}

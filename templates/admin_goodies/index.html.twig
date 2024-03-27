@@ -1,0 +1,57 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Goodies index{% endblock %}
+
+{% block body %}
+    <h1>Goodies index</h1>
+        <div class="d-flex flex-wrap justify-content-end align-items-start">
+            <div class="d-flex me-3">
+                <form action="{{ path('app_admin_goodies_index') }}" method="post" class="d-flex">
+                    <input type="text" name="search" id="" class="form-control">
+                    <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+                </form>
+            </div>
+            <a href="{{ path('app_admin_goodies_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+        </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %} back.labels.picture {% endtrans %}</th>
+                <th>{% trans %} back.labels.name {% endtrans %}</th>
+                <th class="text-center">{% trans %} back.labels.price {% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for goody in goodies %}
+            <tr>
+                <td>{{ goody.id }}</td>
+                <td class="img-index">
+                    <a href="{{asset('images/goodies/' ~ goody.imageName)}}" data-lightbox="{{goody.imageName}}">
+                    <img src="{{asset('images/goodies/' ~ goody.imageName)}}" alt="{{goody.imageName}}" class="img-fluid">
+                    </a>
+                </td>
+                <td>
+                    {% for translation in goody.translations %}
+							{{ translation.locale == 'en' ? translation.text|upper}}
+					{% endfor %}
+                </td>
+                <td class="text-center">{{ goody.price }} €</td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_goodies_show', {'id': goody.id}) }}" class="btn btn-primary mb-1 mb-md-0"><i class="align-middle" data-feather="eye"></i></a> #}
+                    <a href="{{ path('app_admin_goodies_edit', {'id': goody.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+    {{ knp_pagination_render(goodies) }}
+    </div>
+{% endblock %}

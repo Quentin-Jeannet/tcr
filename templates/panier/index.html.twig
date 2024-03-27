@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}front.panier.mycart{% endtrans %}{% endblock %}
+
+{% block body %}
+<div class="container my-3 p-3">
+    <h1>{% trans %}front.panier.mycart{% endtrans %}</h1>
+
+	
+{% if articles|length > 0 %}
+    <div class="p-4 my-3">
+        <div id="panier">
+            <div class="d-flex justify-content-end"><a href="#" class="btn btn-link-dark  mt-2" id="remove-all">{% trans %}front.panier.remove{% endtrans %}</a></div>
+            <div class="table-responsive" id="detail-panier">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{% trans %}front.panier.product{% endtrans %}</th>
+                            <th class="text-center">{% trans %}front.panier.quantity{% endtrans %}</th>
+                            <th class="text-end">{% trans %}front.panier.price{% endtrans %}</th>
+                            <th class="text-end">{% trans %}front.panier.measure{% endtrans %}</th>
+                            <th class="text-end">{% trans %}front.panier.totalPrice{% endtrans %}</th>
+                            <th class="text-end"></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set total = 0 %}
+                        {% for key ,article in articles %}
+                            <tr class="align-middle" data-id="{% if app.user %}{{article.id}}{% else %}{{key}}{% endif %}">
+                                <td class="col-2">
+                                    <div class="d-flex align-items-center">
+                                    {% if article.type == 'color' %}
+                                        <div class="panier-color border me-3" style="background: {{article.color.hexadecimal1}}"></div>
+                                        <span class="">{{article.color.name}}</span>
+                                        {% elseif article.type == 'goodies' %}
+                                        <img src="{{ asset('images/goodies/' ~ article.goodie.imageName) }}" class="card-img-top panier-color" alt="{{article.goodie.currentTranslation.text}}">
+                                        {% endif %}
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    {% if article.type == 'color' %}
+                                    
+                                        <small role="button" class="moins">
+                                            <i class="fa-solid fa-minus ps-1 pe-3"></i>
+                                        </small>
+                                    {% endif %}
+                                        <span class="quantity">{{article.quantity}}</span>
+                    
+                                    {% if article.type == 'color' %}
+                                        <small  role="button" class="plus">
+                                            <i class="fa-solid fa-plus ps-3 pe-1"></i>
+                                        </small>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    {% if article.type == 'color' %}
+                                        {{article.actualPrice.price|number_format(2)}} €
+                                    {% elseif article.type == 'goodies' %}
+                                        {{article.goodie.price|number_format(2)}} €
+                                    {% endif %}
+                                    
+                                </td>
+                                <td class="text-end">
+                                    {% if article.type == 'color' %}
+                                        {{article.actualPrice.litre}} L
+                                    {% endif %}
+
+                                </td>
+                                <td class="text-end">
+                                    {% if article.type == 'color' %}
+                                        {{article.actualPrice.price * article.quantity|number_format(2)}} €
+                                    {% elseif article.type == 'goodies' %}
+                                        {{article.goodie.price * article.quantity|number_format(2)}} €
+                                    {% endif %}
+                                </td>
+                                <td class="text-end"><span role="button" class="text-dark remove-article"><ion-icon name="trash-outline"></ion-icon></span></td>
+                                {% if article.type == 'color' %}
+                                {% set total = total + (article.actualPrice.price * article.quantity )  %}
+                                {% elseif article.type == 'goodies' %}
+                                {% set total = total + article.goodie.price   %}
+                                {% endif %}
+                                {# <td class="text-end">{{produit.product.price|number_format(2)}}
+                                    €</td>
+                                <td class="text-end">{{produit.total|number_format(2)}}€</td> #}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="total">
+                <div>
+                    <hr>
+                </div>
+                <div class="total2">
+                    {# <p class="text-center">Nombre de produits:
+                        <b>{{panier.totalPieces}}</b> #}
+                    </p>
+                    <p class="text-center">{% trans %}front.panier.totalPrice{% endtrans %}:
+                        <b>{{total|number_format(2)}}</b>
+                        €</p>
+                        {% if app.user %}
+                        <div class="d-flex justify-content-center">
+                            <a href="{{path('app_commande_show')}}" class="btn btn-dark ">{% trans %}front.panier.valid{% endtrans %}</a>
+                        </div>
+                        {% else %}
+                        <div class="d-flex justify-content-center text-center">
+                            <div>
+                                <p>{% trans %}front.panier.info{% endtrans %}</p>
+                                <a href="#" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#modalLogin" role="button">{% trans %}front.panier.connect{% endtrans %}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    {% else %}
+        <div class="p-4 my-3">
+            <p class='text-center'>{% trans %}front.panier.empty{% endtrans %}</p>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    $(document).on('click', '.moins', function(){
+        var id = $(this).closest('tr').data('id');
+        var quantity = $(this).closest('tr').find('.quantity').text();
+        console.log({id, quantity});
+            $.ajax({
+                url: "{{ path('panier_remove_one') }}",
+                data: {id: id},
+                type: 'POST',
+                success: function(html){
+                    $('#panier').html($(html).find('#panier'));
+                }
+            });
+    });
+    $(document).on('click', '.plus', function(){
+        var id = $(this).closest('tr').data('id');
+        console.log(id);
+        var quantity = $(this).closest('tr').find('.quantity').text();
+        console.log({id, quantity});
+            $.ajax({
+                url: "{{ path('panier_add_one') }}",
+                data: {id: id},
+                type: 'POST',
+                success: function(html){
+                    console.log(html, $(html).find('#panier'));
+                    $('#panier').html($(html).find('#panier'));
+                }
+            });
+    });
+    $(document).on('click', '.remove-article', function(){
+        var id = $(this).closest('tr').data('id');
+            $.ajax({
+                url: "{{ path('panier_remove_article') }}",
+                data: {id: id},
+                type: 'POST',
+                success: function(html){
+                    $('#panier').html($(html).find('#panier'));
+                }
+            });
+    });
+    $(document).on('click', '#remove-all', function(){
+        $.ajax({
+            url: "{{ path('panier_remove_all') }}",
+            type: 'POST',
+            success: function(html){
+                $('#panier').html($(html).find('#panier'));
+            }
+        });
+    });
+    </script>
+{% endblock %}

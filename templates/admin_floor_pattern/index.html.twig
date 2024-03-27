@@ -1,0 +1,45 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.floorPatterns{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}back.titles.floorPatterns{% endtrans %}</h1>
+        <div class="d-flex flex-wrap justify-content-end align-items-start">
+            <div class="d-flex me-3">
+                <form action="{{ path('app_admin_floor_pattern_index') }}" method="post" class="d-flex">
+                    <input type="text" name="search" id="" class="form-control">
+                    <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+                </form>
+            </div>
+            <a href="{{ path('app_admin_floor_pattern_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+        </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %} back.labels.image {% endtrans %}</th>
+                <th>{% trans %}back.labels.name{% endtrans %}</th>
+                {# <th>UpdatedAt</th> #}
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for floor_pattern in floor_patterns %}
+            <tr>
+                <td>{{ floor_pattern.id }}</td>
+                <td><img src="{{asset('images/floor/'~ floor_pattern.imageName  ) | imagine_filter('floor')}}" class="rounded" alt=""></td>
+                {# <td>{{ floor_pattern.updatedAt ? floor_pattern.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                <td>{{ floor_pattern.displayName }}</td>
+                    <td class="text-end">
+                    {# <a href="{{ path('app_admin_floor_pattern_show', {'id': floor_pattern.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_floor_pattern_edit', {'id': floor_pattern.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

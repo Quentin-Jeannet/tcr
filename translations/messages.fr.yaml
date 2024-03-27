@@ -1,0 +1,271 @@
+back:
+  message:
+    requiredField: Champ(s) est obligatoire(s)
+    userAddSuccess: Utilisateur ajouté avec succès
+    userEditSuccess: Utilisateur modifié avec succès
+    userDeleteSuccess: Utilisateur supprimé avec succès
+    categoryAddSuccess: Catégorie ajoutée avec succès
+    categoryEditSuccess: Catégorie modifiée avec succès
+    categoryDeleteSuccess: Catégorie supprimée avec succès
+    subCategoryAddSuccess: Sous-catégorie ajoutée avec succès
+    subCategoryEditSuccess: Sous-catégorie modifiée avec succès
+    subCategoryDeleteSuccess: Sous-catégorie supprimée avec succès
+    noRecordFound: Aucun enregistrement trouvé
+    priceAddSuccess: Prix ajouté avec succès
+    priceEditSuccess: Prix modifié avec succès
+    priceDeleteSuccess: Prix supprimé avec succès
+    newsLetterRegistrationSuccess: Votre inscription à la lettre d'information a été validée
+    newsLetterRegistrationAlreadyExists: Vous êtes déjà inscrit à la lettre d'information
+    newsLetterSubscriberDeleteSuccess: Abonné à la lettre d'information supprimé avec succès
+    newsLetterSubscriberEditSuccess: Abonné à la lettre d'information modifié avec succès
+    newsLetterSubscriberAddSuccess: Abonné à la lettre d'information ajouté avec succès
+    colorAddSuccess: Couleur ajoutée avec succès
+    colorEditSuccess: Couleur modifiée avec succès
+    colorDeleteSuccess: Couleur supprimée avec succès
+    goodyAddSuccess: Goodies ajouté avec succès
+    goodyEditSuccess: Goodies modifié avec succès
+    goodyDeleteSuccess: Goodies supprimé avec succès
+  titles:
+    colors: Couleurs
+    newColor: Nouvelle couleur
+    editColor: Edition couleur
+    colorFamily: Familles de couleur
+    newColorFamily: Nouvelle famille de couleur
+    editColorFamily: Edition famille de couleur
+    goodies: Cadeau
+    newGoodies: Nouveau cadeau
+    editGoodies: Edition cadeau
+    categories: Catégories
+    category: Categorie
+    newCategory: Nouvelle catégorie
+    editCategory: Edition catégorie
+    subCategories: Sous-catégories
+    subCategory: Sous-catégorie
+    newSubCategory: Nouvelle sous-catégorie
+    editSubCategory: Edition sous-catégorie
+    prices: Prix
+    price: Prix
+    newPrice: Nouveau Prix
+    editPrice: Edition prix
+    seo: SEO
+    paint: Peinture
+    content: Contenus
+    wall: Mur
+    floor: Plancher
+    users: Utilisateurs
+    user: Utilisateur
+    newUser : Nouvel utilisateur
+    editUser : Edition utilisateur
+    contacts: Contacts
+    contact: Contact
+    newsLetterMembers: Membres newsletter
+    newNewsLetterMember: Nouveau membre newsletter
+    editNewsLetterMember: Membre newsletter
+    socialNetworks: Réseaux sociaux
+    socialNetwork: Réseau social
+    editFloor : Edition sols
+    floors: Sols
+    newFloor : Nouveau sol
+    floorFamilies: Familles de sol
+    newFloorFamily: Nouvelle famille de sol
+    editFloorFamily: Edition famille de sol
+    floorPrices: Prix des sols
+    newFloorPrice: Nouveau prix de sol
+    editFloorPrice: Edition prix de sol
+    floorWidth: Largeur de sol
+    editFloorWidth: Edition largeur de sol
+    newFloorWidth: Nouvelle largeur de sol
+    floorPatterns: Motifs de sol
+    newFloorPattern: Nouveau motif de sol
+    editFloorPattern: Floor pattern edition
+  labels:
+    classes: Classes fontawesome
+    link: Lien
+    title: Titre
+    name: Nom
+    secondeName: Deuxième nom
+    firstname: Prénom
+    email: Email
+    phone: Téléphone
+    address: Adresse
+    complementAddress: Complément d'adresse
+    zipCode: Code postal
+    city: Ville
+    country: Pays
+    role: Rôle
+    password: Mot de passe
+    confirmPassword: Confirmer le mot de passe
+    active: Active
+    hexa: Hexadécimal
+    actions: Actions
+    color: Couleur
+    picture: Image
+    description: Description
+    associatedColors: Couleurs associées
+    colorFamily: Familles de couleurs
+    prices: Prix
+    price: Prix
+    liter: Litre
+    milliliter: Millilitre
+    roleUser: Utilisateur
+    roleAdmin: Administrateur
+    roleSuperAdmin: Super administrateur
+    avatar: Avatar
+    rank: Rang
+    author: Auteur
+    keywords: Trefwoorden
+    slug: Slug
+    masonry: Largeur de la masonry
+    quantity: Quantité
+    measure: Mesure
+    createdAt: Créé le
+    subject: Sujet
+    message: Message
+    floor: Sol
+    floorFamily: Famille de sol
+    floorThickness: Epaisseur de sol
+    floorWidth: Longueur de sol
+    floorLength: Largeur de sol
+    floorFinition: Finition de sol
+    floorRendering: Rendu de sol
+    floorType: Type de sol
+    image: Photo
+    image_help: Image représentant cette categorie dans le menu de navigation
+    width: Largeur
+    isMenu: Menu principal
+  ctas:
+    new: Nouveau
+    backToList: Retour à la liste
+    goToSite: Aller sur le site
+    home: Accueil
+    price: Prix
+    users: Utilisateurs
+    newsletter: Newsletter
+    socialNetwork: Réseaux sociaux
+    floorWidth: Largeur de sol
+    floorPattern: Motif de sol
+front:
+  general:
+    ourcolors: Nos couleurs
+    ourfloors: Nos sols
+    all: Tout
+    seeAlso: A voir
+    total: Total
+    ttc: TTC
+    finish: Finitions
+    addToCart: Ajouter au panier
+    colorRecommanded: Couleurs recommandées
+    showConfigurator: Voir sur le configurateur
+    goodies: Accessoires
+    thickness: Epaisseur
+    pattern: Motif
+    registred:
+      title: Félicitations
+      message: Votre inscription a été prise en compte, un mail de confirmation vous a été envoyé.
+      confirm: Terminez votre inscription en validant votre compte en cliquant le lien présent dans le mail, attention ce lien n'est valable qu'une heure.
+      spam: Si vous n'avez pas reçu le mail de confirmation, vérifiez vos spams.
+  panier:
+    empty: Votre panier est vide
+    product: Produits
+    quantity: Quantité
+    price: Prix
+    measure: Mesure
+    totalPrice: Prix total
+    mycart: Mon panier
+    valid: Valider mon panier
+    remove: Vider mon panier
+    info: Vous devez etre connecté pour valider votre panier
+    added: Produit(s) ajouté(s) au panier
+    continue: Continuer mes achats
+    go: Aller au panier
+    associated : Ces couleurs pourraient aussi vous intéresser
+    goodies : Ces goodies pourraient aussi vous intéresser
+    connect: Connectez-vous pour valider votre panier
+    commande:
+      title: Commande et paiement
+      adresses: Adresses
+      deliveryAddress: Adresse de livraison
+      billingAddress: Adresse de facturation
+      edit: Modifier
+      deliveryOptions: Options de livraison
+      summary: Résumé de la commande
+      delivery: Livraison
+      commande: Commande
+      total: Total
+      pay: Payer
+      save : Enregistrer
+      valid: Valider
+      back: Retour
+  user:
+    welcome: Bienvenue
+    email: Email
+    address: Mes adresses
+    addressNotProvided: Vous n'avez pas encore enregistré d'adresse
+    addAddress : Ajouter une adresse
+    phone : Numéro de téléphone
+    phoneNotProvided : Vous n'avez pas encore enregistré de numéro de téléphone
+    editInfo: Modfier mes informations
+    editPassword: Modifier mon mot de passe
+    orders: Mes commandes
+    profile: Profile
+    emptyAddress: Vous n'avez pas encore enregistré d'adresse
+    addNewAddress: Ajouter une adresse
+    save: Enregistrer
+    newAddress : Nouvelle adresse
+    colors : Couleurs favorites
+    myAddress : Mes adresses
+    myColors : Mes couleurs favorites
+    emptyColors : Vous n'avez pas encore enregistré de couleurs favorites
+    edit : Modifier
+    myOrders : Mes commandes
+  login:
+    login: Connexion
+    loged: vous etes connecté en tant que  
+    logout: Déconnexion
+    pleaseSignIn: Connectez-vous
+    email: Email
+    password: Mot de passe
+    signIn: Connexion
+    notRegistred: Pas encore enregistré(e)?
+    forgotten: Mot de passe oublié?
+    remember: Se souvenir de moi
+    register: Inscription
+    email_already_used : Email déjà utilisé
+    password_not_match : Les mots de passe ne correspondent pas
+    password_pregmatch : Le mot de passe doit contenir au moins 8 caractères dont un chiffre , une lettre majuscule une lettre minuscule et un caractère spécial
+  footer:
+    info: PLUS D'INFOS
+    mission: Nos mission
+    history: Histoire
+    about: A propos
+    safety: Feuilles de sécurité
+    transport: Transport
+    inspired: INSPIRATION
+    blog: Histoire de TCR (Blog)
+    contact: Contactez-nous
+    learn: Apprendre plus
+    stores: Magasins
+    more: PLUS
+    fidbox: Système de surveillance Fidbox
+    material: Matériau solide/usiné
+    maintenance: Maintenance
+    rights: TOUS DROITS RESERVÉS
+    privacy: Politique de confidentialité
+    terms: Conditions d'utilisation
+    newsletter: THE COLORS REPUBLIC NEWSLETTER
+    email: Votre email
+    subscribe: Souscrire
+  contact:
+    email: Email
+    subject: Sujet
+    message: Message
+    send: Envoyer
+    success: Merci, votre message a bien été envoyé.
+  email:
+    message: 'Veuillez confirmer votre email en cliquant sur le lien suivant :'
+    thanks: Merci!
+    welcome: Bienvenue sur The Colour Republic
+    confirm: Confirmer votre email
+    expire: Votre lien de confirmation expire dans
+  floor:
+    noPattern: Aucun motif

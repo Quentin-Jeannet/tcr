@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+<fieldset class="bg-white p-3 mb-3">
+    {{ form_widget(form) }}
+    {% include 'admin_common/_admin_required_field.html.twig' %}
+</fieldset>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

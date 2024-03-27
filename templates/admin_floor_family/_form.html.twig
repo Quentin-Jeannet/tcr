@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<fieldset class="bg-white p-3 mb-3">
+<div class="form-check form-switch">
+{{ form_row(form.isActive) }}
+</div>
+{{ form_row(form.text) }}
+{# {{ form_row(form.floorPrices)}} #}
+<label class="mb-2">{% trans %}back.labels.description{% endtrans %}</label>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+{% set locales  = form.vars["value"].locales %}
+{% for locale in locales %}
+		<li class="nav-item" role="presentation">
+			<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{locale}}-tab" data-bs-toggle="tab" data-bs-target="#{{locale}}" type="button" role="tab" aria-controls="{{locale}}" aria-selected="true">{{locale}}</button>
+		</li>
+	{% endfor %}
+</ul>
+<div class="tab-content bg-white border-start border-end border-bottom" id="myTabContent">
+	{% for locale in locales %}
+		<div class="tab-pane p-3 fade show {{loop.index0 == 0 ? 'active' : ''}}" id="{{locale}}" role="tabpanel" aria-labelledby="{{locale}}-tab">
+			{{ form_row(form["translation_" ~ locale]) }}
+		</div>
+	{% endfor %}
+</div>
+{% include 'admin_common/_admin_required_field.html.twig' %}
+</fieldset>
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

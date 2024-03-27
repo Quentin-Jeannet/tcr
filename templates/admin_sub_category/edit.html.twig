@@ -1,0 +1,21 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Edit SubCategory{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_sub_category_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <div class="d-flex justify-content-between">
+        <h1>Edit SubCategory</h1>
+        {% if is_granted('ROLE_SUPERADMIN') %}
+        {{ include('admin_sub_category/_delete_form.html.twig') }}
+        {% endif %}
+        
+        
+    </div>
+    {{ include('admin_sub_category/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}
+{% block javascripts %}
+<script>
+    $("#sub_category_categories").select2();
+</script>
+{% endblock %}

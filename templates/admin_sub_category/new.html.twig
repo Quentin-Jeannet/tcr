@@ -1,0 +1,14 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.newSubCategory{% endtrans %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_sub_category_index') }}" class="btn btn-dark mb-3 btn-sm">{% trans %} back.ctas.backToList {% endtrans %}</a>
+    <h1>{% trans %}back.titles.newSubCategory{% endtrans %}</h1>
+    {{ include('admin_sub_category/_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+<script>
+    $("#sub_category_categories").select2();
+</script>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The Colour Republic
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row justify-content-between">
+			<div class="col-lg-4 mb-3">
+				<div class="d-flex">
+					<div class="" id="div-color">
+						<div class="">
+						<a href="{{asset('images/floor/'~ floor.imageName)}}" data-lightbox="image-2"><img src="{{asset('images/floor/'~ floor.imageName) | imagine_filter('floor')}}" class="rounded" alt=""></a>
+						</div>
+					</div>
+					<div class="ms-5">
+						<h5 id="color-name">
+							<b>{{floor.text}}</b>
+						</h5>
+						{% if floor.currentTranslation is not null and floor.currentTranslation|length > 0 %}
+							<div id="color-desc">{{floor.currentTranslation.description}}</div>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="border py-2 px-2 mt-3">
+					<table class="table-floor-detail w-100">
+						<tr>
+							<td>{{ render(controller('App\\Controller\\FrontFloorController::getFamilyPriceRender', {'id': floor.floorFamily.id})) }}</td>
+							{% if app.user %}
+							<td><span class="prix"></span> € <small>TTC</small></td>
+							<td>
+								<div class="d-flex justify-content-end">
+									<div class="moins" role="button"><small><i class="fa-solid fa-minus ps-1 pe-3"></i></small></div>
+									<div class="num">0</div>
+									<div class="plus" role="button"><small><i class="fa-solid fa-plus ps-3 pe-1"></i></small></div>
+								</div>
+							</td>
+							{% endif %}
+						</tr>
+					</table>
+				</div>
+				<h6 class="mt-4">{% trans %}front.general.thickness{% endtrans %}</h6>
+				<div id="thickness-container" class="d-flex">
+					{# {{ render(controller('App\\Controller\\FrontFloorController::getFamilyPriceThickness', {'id': floor.floorFamily.id})) }} #}
+				</div>
+				{% if floor.patterns|length > 0 %}
+				<h6 class="mt-4">{% trans %}front.general.pattern{% endtrans %}</h6>
+				<div id="patterns-container">
+					<div id="patterns-button-container" class="d-flex">
+						{% for floorPattern in floor.patterns %}
+						{# {{ dump(floorPattern) }} #}
+							{% if loop.index0 == 0 %}
+								<div class="d-flex flex-wrap"><div class="btn-pattern family-button me-2 mb-1 button-active" data-id="{{ floorPattern.id }}"><span>{{ floorPattern.displayName }}</span></div></div>
+							{% else %}
+								<div class="d-flex flex-wrap"><div class="btn-pattern family-button me-2 mb-1" data-id="{{ floorPattern.id }}"><span>{{ floorPattern.displayName }}</span></div></div>
+							{% endif %}
+						{% else %}
+						{# <p>{% trans %}front.{% endtrans %}</p> #}
+						{% endfor %}
+					</div>
+					<div id="pattern-explain">
+				
+					</div>
+				</div>
+				{% endif %}
+				<hr class="mb-4">
+				<h2 class="title-goodies mt-0">{% trans %}front.general.seeAlso{% endtrans %}</h2>
+				<div class="d-flex flex-wrap pt-2">
+					{% for subCategorie in category.subCategories %}
+						{% if subCategorie.currentTranslation.slug.text|lower != 'intro' %}
+						<div class="pb-2 me-3">
+							<a href="{{path('pages', {'slugCategory': category.currentTranslation.slug.text, 'slugSubCategory': subCategorie.currentTranslation.slug.text})}}" class="btn btn-sub">{{subCategorie.currentTranslation.text|capitalize}}</a>
+						</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="grid">
+					{% for photo in photos %}
+						<a href="{{ asset('images/colorImages/' ~ photo.imageName) }}" data-lightbox="masonery"><img src="{{asset('images/colorImages/' ~ photo.imageName)}}" alt="" class="grid-item"></a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+	// Mise en place des click sur les boutons des patterns
+	$(".btn-pattern").on("click", function(){
+		console.log("click on pattern=>", $(this).data('id'));
+		$(this).parent().parent().find('.button-active').removeClass('button-active');
+		$(this).addClass('button-active');
+		let id = $(this).data('id');
+		// Chargement des informations du pattern en ajax
+		$.ajax({
+			url: "{{path('get_pattern')}}",
+			type: "POST",
+			data: 'patternId='+ id
+			,
+		}).done(function(response){
+			let content = '<div class="my-3"><strong>'+response.name+'</strong></div><div class="col-6"><a href="{{ asset('images/floor/')}}'+response.image+'" data-lightbox="image-1"><img src="{{ asset('images/floor/')}}'+response.image+'" class="img-fluid rounded"></a></div><div class="col-12 text-pattern mt-3">'+response.description+'</div>';
+			$('#pattern-explain').html(content);
+		});
+	});
+	$(".btn-pattern").eq(0).trigger("click");
+	// Mise en place du comportement du select des render
+	$("#floor-render-select").on("change", function(){
+		let selectId = $(this).val();
+		// Requête Ajax pour récupérer les thickness du render
+		$.ajax({
+			url: "{{path('get_floor_thickness')}}",
+			type: "POST",
+			data: {
+				'id': selectId,
+				'familyId': {{floor.floorFamily.id}}
+			},
+		}).done(function(response){
+			$('#thickness-container').html('');
+			$.each(response, function(index, element) {
+				console.log("index=>",index, "element=>", element);
+				if(index == 0){
+					$('#thickness-container').append('<div class="d-flex flex-wrap"><div class="finish family-button me-2 mb-1 button-active" data-id="'+element.id+'"><span>'+element.thickness+'&nbsp;mm</span></div></div>');
+					if($('.prix').length > 0){	$('.prix').html(element.price); }
+				}else{
+					$('#thickness-container').append('<div class="d-flex flex-wrap"><div class="finish family-button me-2 mb-1" data-id="'+element.id+'"><span>'+element.thickness+'&nbsp;mm</span></div></div>');
+				}
+					//$('#thickness-container').append('<div class="me-3"><a href="#" class="btn btn-thickness active" data-id="'+element.id+'">'+element.thickness+'</a></div>');}
+        	});
+			//console.log("response=>",response);
+		});
+	});
+	$("#floor-render-select").trigger("change");
+	// Masonery
+$('.fa-heart').on("click", function () {
+	var colorid = $(this).attr('data-colorid');
+	var currentBt = $(this);
+	if($(this).hasClass('fa-regular')){
+		console.log('hihi');
+		$.ajax({
+			url: '/addcolor',
+			type: 'POST',
+			data: "id=" + colorid
+		}).done(function (response) {
+				$(currentBt).removeClass('fa-regular');
+				$(currentBt).addClass('fas');
+		});
+	}else if($(this).hasClass('fas')){
+		$.ajax({
+			url: '/removecolor',
+			type: 'POST',
+			data: "id=" + colorid
+		}).done(function (response) {
+				$(currentBt).removeClass('fas');
+				$(currentBt).addClass('fa-regular');
+		});
+	}
+});
+
+$(window).on('load', function(){
+	$('.grid').masonry({
+		itemSelector: '.grid-item',
+		gutter: 10,
+		// percentPosition: true,
+		// horizontalOrder: true,
+		isFitWidth: true
+	})
+});
+</script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.categories {% endtrans %}{% endblock %}
+
+{% block body %}
+	<h1>{% trans %} back.titles.categories {% endtrans %}</h1>
+	<div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_category_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+		<a href="{{ path('app_admin_category_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th class="text-center">{% trans %} back.labels.picture {% endtrans %}</th>
+				<th class="text-center">{% trans %} back.labels.name {% endtrans %}</th>
+				<th class="text-center">{% trans %} back.labels.rank {% endtrans %}</th>
+				<th class="text-center">{% trans %} back.labels.isMenu {% endtrans %}</th>
+				<th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in categories %}
+				<tr>
+					<td>{{ category.id }}</td>
+					<td class="col-1"> 
+						<div><a href="{{asset('images/category/' ~ category.currentTranslation.imageName)}}" data-lightbox="{{category.currentTranslation.imageName}}"><img src="{{asset('images/category/' ~ category.currentTranslation.imageName)}}" alt="" class='img-fluid'></a></div>
+					</td>
+					<td class="text-center">
+						{{ category.displayName }}
+					</td>
+					<td class="text-center">
+						{{ category.rankOrder }}
+					</td>
+					<td class="text-center">
+						{% if category.isMenu %}
+							{# <i class="align-middle" data-feather="check"></i> #}
+							<div class="form-check form-switch form-switch-category">
+								<input class="form-check-input form-check-category" type="checkbox" role="switch" data-category="{{ category.id}}" checked>
+							</div>
+						{% else %}
+							{# <i class="align-middle" data-feather="x"></i> #}
+							<div class="form-check form-switch form-switch-category">
+								<input class="form-check-input form-check-category" type="checkbox" role="switch" data-category="{{ category.id}}">
+							</div>
+						{% endif %}
+					</td>
+					<td class="text-end">
+						{# <a href="{{ path('app_admin_category_show', {'id': category.id}) }}" class="btn btn-primary mb-1 mb-md-0">
+							<i class="align-middle" data-feather="eye"></i>
+						</a> #}
+						<a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success">
+							<i class="align-middle" data-feather="edit"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="navigation">
+    {{ knp_pagination_render(categories) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(".form-check-category").each(function(){
+	$(this).on("change", function(){
+		
+		let isChecked = $(this).is(":checked");
+		$.ajax({
+			url: "{{ path('app_admin_category_switch') }}",
+			method: "POST",
+			data: {
+				"id": $(this).data("category"),
+				"isMenu": isChecked
+			},
+		}).done(function(data){
+			//console.log(data);
+		});
+	});
+});
+</script>
+{% endblock %}

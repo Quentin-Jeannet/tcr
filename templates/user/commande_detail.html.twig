@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{app.user.firstname}} {{app.user.name}}{% endblock %}
+
+
+{% block body %}
+<div class="container py-3">
+    <h1>{{commande.numCommande}}</h1>
+	<table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}front.panier.product{% endtrans %}</th>
+                <th class="text-center">{% trans %}front.panier.quantity{% endtrans %}</th>
+                <th class="text-end">{% trans %}front.panier.price{% endtrans %}</th>
+                <th class="text-end">{% trans %}front.panier.measure{% endtrans %}</th>
+                <th class="text-end">{% trans %}front.panier.totalPrice{% endtrans %}</th>
+                <th class="text-end"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total = 0 %}
+            {% for article in commande.articles %}
+                <tr class="align-middle">
+                    <td class="col-2">
+                        <div class="d-flex align-items-center">
+                        {% if article.type == 'color' %}
+                            <div class="panier-color border me-3" style="background: {{article.color.hexadecimal1}}"></div>
+                            <span class="">{{article.color.name}}</span>
+                            {% elseif article.type == 'goodies' %}
+                            <img src="{{ asset('images/goodies/' ~ article.goodie.imageName) }}" class="card-img-top panier-color" alt="{{article.goodie.currentTranslation.text}}">
+                            {% endif %}
+                        </div>
+                    </td>
+
+                    <td class="text-center">
+                            <span class="quantity">{{article.quantity}}</span>
+                    </td>
+                    <td class="text-end">
+                        {{article.price|number_format(2)}} €
+                    </td>
+                    <td class="text-end">
+                        {% if article.type == 'color' %}
+                            {{article.liter}} L
+                        {% endif %}
+
+                    </td>
+                    <td class="text-end">
+                        {{article.price * article.quantity|number_format(2)}} €
+                    </td>
+                    <td class="text-end"><span role="button" class="text-dark remove-article"><ion-icon name="trash-outline"></ion-icon></span></td>
+                    {% set total = total + (article.price * article.quantity )  %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+                <div class="total">
+                <div>
+                    <hr>
+                </div>
+                <div class="total2">
+                    </p>
+                    <p class="text-center">{% trans %}front.panier.totalPrice{% endtrans %}:
+                        <b>{{total|number_format(2)}}</b>
+                        €</p>
+
+                </div>
+            </div>
+</div>
+{% endblock %}
+
+

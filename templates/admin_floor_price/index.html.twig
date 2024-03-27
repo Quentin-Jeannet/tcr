@@ -1,0 +1,75 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.floorPrices{% endtrans %}{% endblock %}
+
+{% block body %}
+<h1>{% trans %}back.titles.floorPrices{% endtrans %}</h1>
+
+<div class="d-flex flex-wrap justify-content-end align-items-start">
+    <a href="{{ path('app_admin_floor_price_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+</div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %}back.labels.price{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorFamily{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorType{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorThickness{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorWidth{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorLength{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorFinition{% endtrans %}</th>
+                <th>{% trans %}back.labels.floorRendering{% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for floor_price in floor_prices %}
+            <tr>
+                <td>{{ floor_price.id }}</td>
+                <td>{{ floor_price.price }} €</td>
+                <td>{{ floor_price.floorFamily.displayName }}</td>
+                <td>{{ floor_price.floorType.name }}</td>
+                <td>{{ floor_price.floorThickness.thickness}} mm</td>
+                    {# {{ dump(floor_price) }} #}
+                <td>
+                {% if floor_price.floorWidth.width is not null %}
+                {{ floor_price.floorWidth.width}}
+                {% elseif floor_price.floorWidth.widthIntitule is not null %}
+                {{ floor_price.floorWidth.widthIntitule}}
+                {% else %}
+                --
+                {% endif %}
+                </td>
+                <td>
+                    {% for length in floor_price.floorlengths %}
+                    <span class="badge rounded-pill bg-dark">{{ length.length}} mm</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if floor_price.floorFinition is not null %}
+                    {{ floor_price.floorFinition.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {{ floor_price.floorRender.name }}
+                </td>
+                <td  class="text-end">
+                    {# <a href="{{ path('app_admin_floor_price_show', {'id': floor_price.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_floor_price_edit', {'id': floor_price.id}) }}" class="btn btn-success">
+                <i class="align-middle" data-feather="edit"></i></a>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+    {{ knp_pagination_render(floor_prices) }}
+    </div>
+{% endblock %}

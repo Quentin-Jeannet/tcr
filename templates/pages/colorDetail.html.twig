@@ -1,0 +1,262 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The Color Republic
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row justify-content-between">
+			<div class="col-lg-4 mb-3">
+				<div class="d-flex">
+					<div class="" id="div-color">
+						<div class="color border" style="background: {{color.hexadecimal1}}">
+							{% if is_granted('ROLE_USER') %}
+								{% set red = color.redFromRGBA * 0.299 %}
+								{% set green = color.greenFromRGBA * 0.587 %}
+								{% set blue = color.blueFromRGBA * 0.114 %}
+								{% if red + green + blue > 186 %}
+									{% set text_color = 'dark' %}
+								{% else %}
+									{% set text_color = 'light' %}
+								{% endif %}
+								{% set break = 'fa-regular' %}
+								{% for c in app.user.colors %}
+									{% if color.id == c.id %}
+										{% set break = 'fas' %}
+									{% endif %}
+								{% endfor %}
+									<div class="text-end text-{{ text_color }} me-1">
+										<i class="{{break}} fa-heart" title="Ajouter à ma liste" data-colorid="{{ color.id }}"></i>
+									</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="ms-5">
+						<h5 id="color-name">
+							<b>{{color.name}}</b>
+						</h5>
+						{% if color.currentTranslation is not null and color.currentTranslation|length > 0 %}
+							<div id="color-desc">{{color.currentTranslation.description|raw }}</div>
+						{% endif %}
+					</div>
+				</div>
+
+				{% for finish in finishes %}
+				<div class="table-responsive panier {% if finish != finishes|first%}d-none{% endif %}" data-finish="{{finish.id}}">
+					<table class="w-100 border my-4 table-paint-detail">
+						<tbody>
+							{% for price in finish.prices %}
+								<tr data-price="{{price.id}}" class="border-bottom">
+									<td class="ps-3 py-2 litre" data-litre="{{price.litre}}">{{price.quantity}}{{price.mesure}}</td>
+									<td class="py-2 text-end"><span class="prix">{{price.price|number_format(2)}}</span> € <small>{% trans %}front.general.ttc{% endtrans %}</small></td>
+									<td class="py-2 pe-3 d-flex justify-content-end">
+										<div class="moins" role="button"><small><i class="fa-solid fa-minus ps-1 pe-3"></i></small></div>
+										<div class="num">0</div>
+										<div class="plus" role="button"><small><i class="fa-solid fa-plus ps-3 pe-1"></i></small></div>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot class="t-foot-paint-detail">
+							<tr class="border-bottom">
+								<td colspan="3" class="text-center"><div class="py-2">{% trans %}front.general.total{% endtrans %}</div></td>
+							</tr>
+							<tr>
+								<td class="py-2 ps-3" ><span class="totalLitre">0</span>L</td>
+								<td class="py-2 text-end"><span class="total">0</span> € <small>{% trans %}front.general.ttc{% endtrans %}</small></td>
+								<td class="py-2 d-flex justify-content-end">
+									<div class="text-white"><small><i class="fa-solid fa-minus ps-1 pe-3"></i></small></div>
+									<div class="numTotal">0</div>
+									<div class="text-white"><small><i class="fa-solid fa-plus ps-3 pe-1"></i></small></div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				{% endfor %}
+
+				<h6 class="mt-1" id="finishing">{% trans %}front.general.finish{% endtrans %}</h6>
+				<div class="d-flex justify-content-between pt-2">
+					{% for finish in finishes %}
+					<div class="finish family-button {% if finish == finishes|first %}button-active{% endif %} m-0" data-id="{{finish.id}}">
+						<div>{{finish.currentTranslation.text|capitalize}}</div>
+					</div>
+						
+					{% endfor %}
+
+				</div>
+				<div class="d-flex flex-column mb-4">
+					<a href="#" id="add-to-cart" data-colorid="{{color.id}}" class="btn btn-sub my-3">{% trans %}front.general.addToCart{% endtrans %}</a>
+					<a href="#" class="btn btn-sub">{% trans %}front.general.showConfigurator{% endtrans %}</a>
+				</div>
+
+				<h6 class="py-3" id="">{% trans %}front.general.colorRecommanded{% endtrans %}</h6>
+
+				{% for associated in associatedColors %}
+
+					<div class="d-flex my-3">
+						<div>
+							<a class="text-decoration-none text-reset" href="{{path('app_detail', {'slugCategory' : category.currentTranslation.slug.text, 'id' : associated.id})}}">
+								<div class="panier-color border me-4" style="background-color: {{associated.hexadecimal1}};"></div>
+								{{associated.name|capitalize}}
+							</a>
+						</div>
+						<div class="associated-colors d-flex border">
+							<div class="associated-color associated-1" style="background-color: {{associated.hexadecimal1}};"></div>
+							<div class="associated-color associated-2" style="background-color: {{color.hexadecimal1}};"></div>
+						</div>
+					</div>
+				{% endfor %}
+
+
+
+
+				<hr class="mb-4">
+				<h2 class="title-goodies mt-0">{% trans %}front.general.seeAlso{% endtrans %}</h2>
+				<div class="d-flex flex-wrap pt-2">
+					{% for subCategorie in category.subCategories %}
+						{% if subCategorie.currentTranslation.slug.text|lower != 'intro' %}
+						<div class="pb-2 me-3">
+							<a href="{{path('pages', {'slugCategory': category.currentTranslation.slug.text, 'slugSubCategory': subCategorie.currentTranslation.slug.text})}}" class="btn btn-sub">{{subCategorie.currentTranslation.text|capitalize}}</a>
+						</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="grid">
+					{% for photo in photos %}
+						<a href="{{ asset('images/colorImages/' ~ photo.imageName) }}" data-lightbox="masonery"><img src="{{asset('images/colorImages/' ~ photo.imageName)}}" alt="" class="grid-item"></a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include "pages/_modalPanier.html.twig" %}
+{% endblock %}
+{% block javascripts %}
+	<script>
+	
+
+$('.fa-heart').on("click", function () {
+	var colorid = $(this).attr('data-colorid');
+	var currentBt = $(this);
+	if($(this).hasClass('fa-regular')){
+		console.log('hihi');
+		$.ajax({
+			url: '/addcolor',
+			type: 'POST',
+			data: "id=" + colorid
+		}).done(function (response) {
+				$(currentBt).removeClass('fa-regular');
+				$(currentBt).addClass('fas');
+		});
+	}else if($(this).hasClass('fas')){
+		$.ajax({
+			url: '/removecolor',
+			type: 'POST',
+			data: "id=" + colorid
+		}).done(function (response) {
+				$(currentBt).removeClass('fas');
+				$(currentBt).addClass('fa-regular');
+		});
+	}
+});
+
+$(window).on('load', function(){
+	$('.grid').masonry({
+		itemSelector: '.grid-item',
+		gutter: 10,
+		// percentPosition: true,
+		// horizontalOrder: true,
+		isFitWidth: true
+	})
+});
+
+	//gestion du nombre des totaux
+	$('.plus').on("click", function () {
+			var litreChoosen = $(this).parent().parent().find('.litre').attr('data-litre');
+		$('.litre[data-litre="' + litreChoosen + '"]').each(function (){
+			var num = $(this).parent().find('.num');
+			var numTotal = $(this).parent().parent().parent().find('.numTotal');
+			var total = $(this).parent().parent().parent().find('.total');
+			var totalLitre = $(this).parent().parent().parent().find('.totalLitre');
+			var litre = $(this).attr('data-litre');
+			var prix = $(this).parent().find('.prix').text();
+			var prixTotal = parseFloat(prix) * parseFloat(litre);
+			num.text(parseInt(num.text()) + 1);
+			numTotal.text(parseInt(numTotal.text()) + 1);
+			total.text((parseFloat(total.text()) + parseFloat(prix)).toFixed(2));
+			totalLitre.text(parseFloat(totalLitre.text()) + parseFloat(litre));
+		})
+
+
+
+	});
+	$('.moins').on("click", function () {
+			var litreChoosen = $(this).parent().parent().find('.litre').attr('data-litre');
+		$('.litre[data-litre="' + litreChoosen + '"]').each(function (){
+			var num = $(this).parent().find('.num');
+			var numTotal = $(this).parent().parent().parent().find('.numTotal');
+			var total = $(this).parent().parent().parent().find('.total');
+			var totalLitre = $(this).parent().parent().parent().find('.totalLitre');
+			var litre = $(this).attr('data-litre');
+			var prix = $(this).parent().find('.prix').text();
+			var prixTotal = parseFloat(prix) * parseFloat(litre);
+			if (parseInt(num.text()) > 0) {
+				num.text(parseInt(num.text()) - 1);
+				numTotal.text(parseInt(numTotal.text()) - 1);
+				total.text((parseFloat(total.text()) - parseFloat(prix)).toFixed(2));
+				totalLitre.text(parseFloat(totalLitre.text()) - parseFloat(litre));
+			}
+		})
+	});
+	//toggle finish button
+	$('.finish').on("click", function () {
+		$('.finish').toggleClass('button-active');
+		id = $(this).attr('data-id');
+		$('.panier').addClass('d-none');
+		console.log($('.panier[data-id="' + id + '"]'));
+		$('.panier[data-finish="' + id + '"]').removeClass('d-none');
+	});
+
+	//add to cart
+	$('#add-to-cart').on("click", function (e) {
+		e.preventDefault();
+		var colorid = $(this).attr('data-colorid');
+		var currentPanier = $('.panier:not(.d-none)');
+		var finish = currentPanier.attr('data-finish');
+		var lignes = currentPanier.find('tbody').find('tr');
+		var articles = [];
+		lignes.each(function () {
+			var num = $(this).find('.num').text();
+			var priceId = $(this).attr('data-price');
+			if (num > 0) {
+				articles.push({
+					num: num,
+					priceId: priceId
+				});
+			}
+
+		});
+		if(articles.length > 0){
+			$.ajax({
+				url: '/panier/ajouter/color',
+				type: 'POST',
+				data: "articles=" + JSON.stringify(articles) + "&color=" + colorid + "&finish=" + finish + "&type=color"
+			}).done(function (response) {
+				$('#panierModal').modal('show');
+				$('#panierModal').find('.modal-body').html(response);
+			});
+		}else{
+			alert('Vous n\'avez rien choisi');
+		}
+	});
+
+
+
+	</script>
+
+
+		
+{% endblock %}

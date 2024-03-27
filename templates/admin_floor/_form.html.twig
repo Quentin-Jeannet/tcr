@@ -1,0 +1,110 @@
+{{ form_start(form) }}
+<fieldset class="bg-white p-3 mb-3">
+{% import "admin_macros/macros_photos.html.twig" as macrosPhoto %}
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#colour-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+            {% trans %}back.labels.floor{% endtrans %}
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#picture-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+            {% trans %}back.labels.picture {% endtrans %}
+        </button>
+    </li>
+</ul>
+<div class="tab-content bg-white border-start border-end border-bottom">
+	
+	<div class="tab-pane fade show active p-3" id="colour-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+		<div class="row">
+			<div class="col-6 col-md-2 d-flex align-items-center">
+                    <div class="form-check form-switch">
+						{{ form_row(form.isActive) }}
+					</div>
+			</div>
+			<div class="col-12 col-md-8">
+				{{ form_row(form.text) }}
+			</div>
+		</div>
+		<div class="row">
+			{% if form.vars["value"].imageName is defined and form.vars["value"].imageName is not null %}
+				<div class="col-1">
+					<img src="{{ asset('images/floor/' ~ form.vars["value"].imageName) }}" alt="" class="img-fluid">
+				</div>
+				<div class="col-11">
+				{{ form_row(form.imageFile) }}
+				</div>
+			{% else %}
+				<div class="col-12">
+					{{ form_row(form.imageFile) }}
+				</div>
+			{% endif %}
+		</div>
+		<div class="row">
+			<div class="col-12">
+				{{ form_row(form.floorFamily) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				{{ form_row(form.patterns) }}
+			</div>
+		</div>
+		<div>
+			<label class="mb-2">{% trans %}back.labels.description{% endtrans %}</label>
+			<ul class="nav nav-tabs" id="description-tab" role="tablist">
+				{% set locales  = form.vars["value"].locales %}
+				{% for locale in locales %}
+					<li class="nav-item" role="presentation">
+						<button class="nav-link {{ loop.index0 == 0 ? 'active' : '' }}" id="{{ locale }}-tab" data-bs-toggle="tab" data-bs-target="#{{ locale }}-description" type="button" role="tab" aria-controls="{{ locale }}-description" aria-selected="true">
+							{{ locale }}
+						</button>
+					</li>
+				{% endfor %}
+			</ul>
+			<div class="tab-content my-2" id="myTabContent">
+				{% for locale in locales %}
+					<div class="tab-pane fade show {{ loop.index0 == 0 ? 'active' : '' }}" id="{{ locale }}-description" role="tabpanel" aria-labelledby="{{ locale }}-tab">
+						{{ form_row(form["translation_" ~ locale]["description"]) }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="tab-pane fade p-3" id="picture-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+		<div class="d-flex justify-content-end">
+			<button type="button" class="add_item_link btn btn-success mb-3" data-collection-holder-class="photos"><i class="align-middle" data-feather="plus"></i></button>
+		</div>
+		<div class="row">
+			<div class="photos row" data-index="{{ form.photos|length > 0 ? form.photos|last.vars.name + 1 : 0 }}" data-prototype="{{ macrosPhoto.renderPhotoWidget(form.photos.vars.prototype)|e('html_attr') }}">
+				{% for photo in form.photos %}
+					<div class="col-md-6 d-flex justify-content-between align-items-stretch p-1">
+						<div class="d-flex justify-content-center">
+								<div class="col-3 align-self-center">
+									<img src="{{ asset('images/colorImages/' ~ photo.vars.value.imageName) }}" alt="" class="img-fluid p-1">
+								</div>
+								<div class="col-9 p-3 align-self-center">
+		
+									<div class="row justify-content-between">
+										<div class="col-12 col-md-11">
+											{{ form_row(photo) }}
+										</div>
+										<div class="col-1 delete-photo align-self-center"><i class="align-middle" data-feather="trash-2"></i></div>
+									</div>
+								</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% include 'admin_common/_admin_required_field.html.twig' %}
+</fieldset>
+<button class="btn btn-primary mt-3">
+	{{ button_label|default('Save') }}
+</button>
+{{ form_end(form) }}
+    

@@ -1,0 +1,268 @@
+back:
+  message:
+    requiredField: Verplichte velden
+    userAddSuccess: Gebruiker succesvol toegevoegd
+    userEditSuccess: Gebruiker succesvol gewijzigd
+    userDeleteSuccess: Gebruiker succesvol verwijderd
+    categoryAddSuccess: Categorie succesvol toegevoegd
+    categoryEditSuccess: Categorie succesvol gewijzigd
+    categoryDeleteSuccess: Categorie succesvol verwijderd
+    subCategoryAddSuccess: Sub-categorie succesvol toegevoegd
+    subCategoryEditSuccess: Sub-categorie succesvol gewijzigd
+    subCategoryDeleteSuccess: Sub-categorie succesvol verwijderd
+    noRecordFound: Geen record gevonden
+    priceAddSuccess: Prijs succesvol toegevoegd
+    priceEditSuccess: Prijs succesvol gewijzigd
+    priceDeleteSuccess: Prijs succesvol verwijderd
+    newsLetterRegistrationSuccess: Uw inschrijving voor de nieuwsbrief is succesvol
+    newsLetterRegistrationAlreadyExists: U bent al ingeschreven voor de nieuwsbrief
+    newsLetterSubscriberDeleteSuccess: Nieuwsbrieflid succesvol verwijderd
+    newsLetterSubscriberEditSuccess: Nieuwsbrieflid succesvol gewijzigd
+    newsLetterSubscriberAddSuccess: Nieuwsbrieflid succesvol toegevoegd
+    colorAddSuccess: Kleur succesvol toegevoegd
+    colorEditSuccess: Kleur succesvol gewijzigd
+    colorDeleteSuccess: Kleur succesvol verwijderd
+    goodyAddSuccess: Goodie succesvol toegevoegd
+    goodyEditSuccess: Goodie succesvol gewijzigd
+    goodyDeleteSuccess: Goodie succesvol verwijderd
+  titles:
+    colors: Kleuren
+    newColor: Nieuwe kleur
+    editColor: Kleur bewerken
+    colorFamily: Kleurfamilies
+    newColorFamily: Nieuwe kleurenfamilie
+    editColorFamily: Color Family-editie
+    goodies: Lekkers
+    newGoodies: Nieuwe goodies
+    editGoodies: Bewerk goodies
+    categories: Categorieën
+    category: Categorie
+    newCategory: Nieuwe categorie
+    editCategory: Categorie bewerken
+    subCategories: Sub-categorieën
+    subCategory: Sub-categorie
+    newSubCategory: Nieuwe sub-categorie
+    editSubCategory: Sub-categorie bewerken
+    prices: Prijzen
+    price: Prijs
+    newPrice: Nieuwe prijs
+    editPrice: Prijs bewerken
+    seo: SEO
+    paint: Verf
+    content: Inhoud
+    wall: Muur
+    floor: Vloer
+    users: Gebruikers
+    newUser : Nieuwe gebruiker
+    editUser : Bewerk gebruiker
+    contacts: Contacten
+    contact: Contact
+    newsLetterMembers: Nieuwsbrief leden
+    newNewsLetterMember: Nieuwe nieuwsbrief lid
+    editNewsLetterMember: Bewerk nieuwsbrief lid
+    socialNetworks: Sociale netwerken
+    socialNetwork: Sociale netwerk
+    editFloor : Bewerk vloer
+    floors: Vloeren
+    newFloor : Nieuwe vloer
+    floorFamilies: Vloerfamilies
+    newFloorFamily: Nieuwe vloerfamilie
+    editFloorFamily: Vloerfamilie bewerken
+    floorPrices: Vloerprijzen
+    newFloorPrice: Nieuwe vloerprijs
+    editFloorPrice: Vloerprijs bewerken
+    floorWidth: Vloerbreedte
+    editFloorWidth: Vloerbreedte bewerken
+    newFloorWidth: Nieuwe vloerbreedte
+    floorPatterns: Vloerpatronen
+    newFloorPattern: Nieuw vloerpatroon
+    editFloorPattern: Floor pattern edition
+  labels:
+    classes: Fontawesome classes
+    link: Link
+    title: Titel
+    name: Naam 
+    secondeName: Tussenvoegsel
+    firstname: Voornaam
+    email: e-mail
+    phone: Telefoon
+    address: Adres
+    complementAddress: Complement adres
+    zipCode: Postcode
+    city: Stad
+    country: Land
+    role: Rol
+    password: Wachtwoord
+    confirmPassword: Bevestig wachtwoord
+    active: Actief
+    hexa: Hexadecimaal
+    action: Acties
+    color: Kleur
+    picture: Afbeelding
+    description: Beschrijving
+    associatedColors: Bijbehorende kleuren
+    colorFamily: Kleurenfamilies
+    prices: Prijzen
+    price: prijs
+    liter: Liter
+    milliliter: Milliliter
+    roleUser: Gebruiker
+    roleAdmin: Beheerder
+    roleSuperAdmin: Super beheerder
+    avatar: Avatar
+    rank: Rang
+    slug: Slug
+    masonry : Masonry breedte
+    quantity: Hoeveelheid
+    measure: Eenheid
+    createdAt: Aangemaakt op
+    subject: Onderwerp
+    message: Bericht
+    floor: Vloer
+    floorFamily: Vloerfamilies
+    floorThickness: Vloderschoon
+    floorWidth: Breedte
+    floorLength: Lengte 
+    floorFinition: Vloerfinitie
+    floorRendering: Vloerrendering
+    floorType: Vloertype
+    image: Foto
+    image_help: Afbeelding die deze categorie vertegenwoordigt in het navigatiemenu
+    width: Breedte
+    isMenu: In het menu
+  ctas:
+    new: Nieuwe
+    backToList: Terug naar lijst
+    goToSite: Ga naar de site
+    home: Huis
+    price: prijs
+    users: Gebruikers
+    newsletter: Nieuwsbrief
+    socialNetwork: Sociale netwerken
+    floorWidth: Breedte
+    floorPattern: Vloerpatroon
+front:
+  general:
+    ourcolors: Onze kleuren
+    ourfloors: Onze vloeren
+    all: alle
+    seeAlso: zie ook
+    total: Totaal
+    ttc: TTC
+    finish: eindigt
+    addToCart: Voeg toe aan winkelkar
+    colorRecommanded: Aanbevolen kleuren
+    showConfigurator: Zie op de configurator
+    goodies: Lekkers
+    thickness: Dikte
+    pattern: Patroon
+    registred:
+      title: Gefeliciteerd
+      message: Er is rekening gehouden met uw aanmelding, er is een bevestigingsmail naar u verzonden.
+      confirm: Voltooi uw registratie door uw account te valideren door op de link in de e-mail te klikken. Houd er rekening mee dat deze link slechts één uur geldig is.
+      spam: Als u de e-mail niet hebt ontvangen, controleer dan uw spam-folder.
+  panier:
+    empty: Jouw mandje is leeg
+    product: Producten
+    quantity: Hoeveelheid
+    price: Prijs
+    measure: Maatregel
+    totalPrice: Totale prijs
+    mycart: Mijn wagen
+    valid: Valideer mijn winkelwagen
+    remove: Leeg mijn winkelmandje
+    info: Je moet ingelogd zijn om door te gaan
+    added: Artikel(en) toegevoegd aan winkelwagen
+    continue: Doorgaan met winkelen
+    go: Ga naar winkelwagen
+    associated : Deze kleuren kunnen je interesseren
+    goodies : Deze goodies kunnen je interesseren
+    connect: Log in om te winkelen
+    commande:
+      title: Levering en betaling
+      adresses: Adressen
+      deliveryAddress: Leveringsadres
+      billingAddress: Factuuradres
+      edit: Bewerk
+      deliveryOptions: Leveringsmogelijkheden
+      summary: Samenvatting
+      delivery: Levering
+      commande: Bestelling
+      total: Totaal
+      pay: Betalen
+      save : Bewaar mijn adres
+      valid: Valideer
+      back: Terug naar winkelwagen
+  user:
+    welcome: Welkom
+    email: Email
+    address: Adres
+    addressNotProvided: U heeft nog geen adres geregistreerd
+    addAddress : Voeg een adres toe
+    phone : Telefoonnummer
+    phoneNotProvided : Vous n'avez pas encore enregistré de numéro de téléphone
+    editInfo: U heeft nog geen telefoonnummer geregistreerd
+    editPassword: Verander mijn wachtwoord
+    orders: Mijn bestellingen
+    profile: Profiel
+    emptyAddress: U heeft nog geen adres geregistreerd
+    addNewAddress: Voeg een nieuw adres toe
+    save: Besparen
+    newAddress : Nieuw adres
+    colors : Favoriete kleuren
+    myAddress : Mijn adressen
+    myColors :  Mijn favoriete kleuren
+    emptyColors : U heeft nog geen favoriete kleuren geregistreerd
+    edit: Bewerk
+    myOrders : Mijn bestellingen
+  login:
+    login: Log in
+    loged: Je bent ingelogd als
+    logout: Uitloggen
+    pleaseSignIn: Log in alstublieft
+    email: Email
+    password: Wachtwoord
+    signIn: Log in
+    notRegistred: Nog niet geregistreerd?
+    forgotten: Vergeten wachtwoord?
+    remember: Onthoud mij
+    register: Registreer
+    email_already_used : Email is al in gebruik
+    password_not_match : Wachtwoorden komen niet overeen
+    password_pregmatch : wachtwoord moet minimaal 8 tekens bevatten, waaronder een cijfer, een hoofdletter, een kleine letter en een speciaal teken
+  footer:
+    info: MEER INFO
+    mission: Nos Missies
+    history: Geschiedenis
+    about: Over ons
+    safety: veiligheidsblad
+    transport: Transport
+    inspired: GEINSPIREERD ZIJN
+    blog: TCR-verhalen (blog)
+    contact: Neem contact met ons op
+    learn: Leer meer
+    stores: Magazijnen
+    more: MEER
+    fidbox: Fidbox controlesysteem
+    material: Massief/bewerkt materiaal
+    maintenance: Onderhoud
+    rights: ALLE AUTEURRECHTEN VORBELUNG
+    privacy: Privacybeleid
+    terms: Gebruiksvoorwaarden
+    newsletter: THE COLORS REPUBLIC NEWSLETTER
+    email: Jouw email
+    subscribe: Abonneren
+  contact:
+    email: Email
+    subject: Onderwerp
+    message: Bericht
+    send: Verzenden
+    success: Bedankt, uw bericht is verzonden.
+  email:
+    message: 'Bevestig uw e-mail door op de volgende link te klikken:'
+    thanks: Bedankt !
+    welcome: Welkom op de website van The Colour Republic
+    confirm: bevestig je email
+    expire: Uw bevestigingslink verloopt over
+  floor:
+    noPattern: Geen patroon

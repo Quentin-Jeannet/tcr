@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ConfiguratorOrientationTranslationRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=ConfiguratorOrientationTranslationRepository::class)
+ */
+class ConfiguratorOrientationTranslation
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $text;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $locale;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ConfiguratorOrientation::class, inversedBy="translations")
+     */
+    private $configuratorOrientation;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): self
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getConfiguratorOrientation(): ?ConfiguratorOrientation
+    {
+        return $this->configuratorOrientation;
+    }
+
+    public function setConfiguratorOrientation(?ConfiguratorOrientation $configuratorOrientation): self
+    {
+        $this->configuratorOrientation = $configuratorOrientation;
+
+        return $this;
+    }
+}

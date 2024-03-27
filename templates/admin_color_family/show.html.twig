@@ -1,0 +1,76 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}ColorFamily{% endblock %}
+
+{% block body %}
+    <h1>ColorFamily</h1>
+    <a href="{{ path('app_admin_color_family_index') }}" class="btn btn-secondary">back to list</a>
+
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		{% for lang in locales %}
+			<li class="nav-item" role="presentation">
+				<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}-tab" data-bs-toggle="tab" data-bs-target="#{{lang}}" type="button" role="tab" aria-controls="{{lang}}" aria-selected="true">{{lang}}</button>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="tab-content" id="myTabContent">
+		{% for lang in locales %}
+			<div class="tab-pane fade show {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}" role="tabpanel" aria-labelledby="{{lang}}-tab">
+				<table class="table">
+					<tbody>
+						{% if color_family.ColorFamilyTranslations is not null and color_family.ColorFamilyTranslations|length > 0 %}
+							{% for t in color_family.ColorFamilyTranslations %}
+								{% if (lang == t.lang) %}
+									<tr>
+										<th class="col-3">Name</th>
+										<td>{{t.name|raw}}</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						{% if color_family.category is not null and color_family.category|length > 0 %}
+							<tr>
+								<th>Category</th>
+                                <td>
+									{% for t in color_family.category.categoryTranslations %}
+										{% if (lang == t.lang) %}
+											{{t.title}}</br>
+									    {% endif %}
+							    {% endfor %}
+                                </td>
+						    </tr>
+					    {% endif %}
+				    </tbody>
+			    </table>
+		    </div>
+	    {% endfor %}
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ color_family.id }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ color_family.active ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Created at</th>
+                <td>{{ color_family.createdAt ? color_family.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated at</th>
+                <td>{{ color_family.updatedAt ? color_family.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_admin_color_family_edit', {'id': color_family.id}) }}" class="btn btn-success">
+		<i class="align-middle" data-feather="edit"></i></a>
+
+    {{ include('admin_color_family/_delete_form.html.twig') }}
+{% endblock %}

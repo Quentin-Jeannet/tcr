@@ -1,0 +1,24 @@
+<div class="goodies">
+    <h2 class="title-goodies">{% trans %} front.general.goodies {% endtrans %}</h2>
+
+    
+    <div class="goody row">
+    {% for goody in goodies %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card p-0">
+                <a href="{{ asset('images/goodies/' ~ goody.imageName) }}" data-lightbox="{{ goody.imageName }}"><img src="{{ asset('images/goodies/' ~ goody.imageName) }}" class="card-img-top" alt="{{goody.currentTranslation.text}}"></a>
+                <div class="card-body p-0 d-flex justify-content-between align-items-end">
+                    <div>
+                        <p class="goody-title m-0 pt-3">{{goody.currentTranslation.text|upper}}</p>
+                        <p class="goody-price m-0">{{goody.price}}
+                            €</p>
+                    </div>
+                    <a href="#" class="a-button-cart">
+                        <div class="button-cart add-to-cart" data-id="{{goody.id}}" data-price="{{goody.price}}">Add to card</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>

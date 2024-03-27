@@ -1,0 +1,11 @@
+<div class="p-3">
+    <p>{% trans %}front.panier.associated{% endtrans %} :</p>
+    <div class="d-flex flex-wrap justify-content-around text-center">
+        {% for color in colors %}
+        <a href="{{path('app_detail', {'slugCategory':color.colorFamilies|first.category.currentTranslation.slug.text, 'id': color.id})}}" class="m-2  text-decoration-none">
+            <div class="color border" style="background: {{color.hexadecimal1}}"></div>
+            <p class="text-dark">{{color.name}}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>

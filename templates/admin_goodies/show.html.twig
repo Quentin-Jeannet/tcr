@@ -1,0 +1,74 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Goodies{% endblock %}
+
+{% block body %}
+    <h1>Goodies</h1>
+    <a href="{{ path('app_admin_goodies_index') }}" class="btn btn-secondary">back to list</a>
+
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		{% for lang in locales %}
+			<li class="nav-item" role="presentation">
+				<button class="nav-link {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}-tab" data-bs-toggle="tab" data-bs-target="#{{lang}}" type="button" role="tab" aria-controls="{{lang}}" aria-selected="true">{{lang}}</button>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="tab-content" id="myTabContent">
+		{% for lang in locales %}
+			<div class="tab-pane fade show {{loop.index0 == 0 ? 'active' : ''}}" id="{{lang}}" role="tabpanel" aria-labelledby="{{lang}}-tab">
+				<table class="table">
+					<tbody>
+						{% if goody.goodiesTranslations is not null and goody.goodiesTranslations|length > 0 %}
+							{% for c in goody.goodiesTranslations %}
+								{% if (lang == c.lang) %}
+                                    <tr>
+										<th class="col-3">Title</th>
+										<td>{{c.title}}</td>
+									</tr>
+									<tr>
+										<th class="col-3">Description</th>
+										<td>{{c.description|raw}}</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						
+				    </tbody>
+			    </table>
+		    </div>
+	    {% endfor %}
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td colspan="2">{{ goody.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td class="img-show"><img src="{{asset('images/goodies/' ~ goody.imageName)}}" alt="{{goody.imageName}}" class="img-fluid"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td colspan="2">{{ goody.price }} €</td>
+            </tr>
+            <tr>
+                <th>Created at</th>
+                <td colspan="2">{{ goody.createdAt ? goody.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated at</th>
+                <td colspan="2">{{ goody.updatedAt ? goody.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_admin_goodies_edit', {'id': goody.id}) }}" class="btn btn-success">
+		<i class="align-middle" data-feather="edit"></i></a>
+
+    {{ include('admin_goodies/_delete_form.html.twig') }}
+{% endblock %}

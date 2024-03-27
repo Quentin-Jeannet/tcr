@@ -1,0 +1,184 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{app.user.firstname}} {{app.user.name}}{% endblock %}
+{% import "admin_macros/macros_address.html.twig" as macrosAddress %}
+
+{% block body %}
+	{# -------------------- Création des tabs ---------------------- #}
+	<div class="container my-1">
+		<ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
+			<li class="nav-item navItemCard" role="presentation">
+				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">{% trans %}front.user.profile{% endtrans %}</button>
+			</li>
+			<li class="nav-item navItemCard" role="addresses">
+				<button class="nav-link" id="addresses-tab" data-bs-toggle="tab" data-bs-target="#addresses" type="button" role="tab" aria-controls="addresses" aria-selected="false">{% trans %}front.user.address{% endtrans %}</button>
+			</li>
+			<li class="nav-item navItemCard" role="colors">
+				<button class="nav-link" id="colors-tab" data-bs-toggle="tab" data-bs-target="#colors" type="button" role="tab" aria-controls="colors" aria-selected="false">{% trans %}front.user.colors{% endtrans %}</button>
+			</li>
+			<li class="nav-item navItemCard" role="commande">
+				<button class="nav-link" id="commandes-tab" data-bs-toggle="tab" data-bs-target="#commandes" type="button" role="tab" aria-controls="commandes" aria-selected="false">{% trans %}front.user.orders{% endtrans %}</button>
+			</li>
+		</ul>
+
+		<div
+			class="tab-content" id="myTabContent">
+			{# ------------------------------------------------------------ #}
+			{# -------------------- Tab informations ---------------------- #}
+			{# ------------------------------------------------------------ #}
+			<div class="tab-pane fade show active bg-white p-3 border-bottom border-start border-end" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="h-block-common p-3 my-2">
+				<h2>{% trans %}front.user.welcome{% endtrans %}
+					{{app.user.firstname|title}}
+					{{app.user.name|title}}
+					!</h2>
+				</div>
+				{{form_start(form)}}
+				<div class="row">
+					<div class="col-12 row">
+						{% set class = 'col-md-6' %}
+						{% if form.userAvatar.vars.value is defined and form.userAvatar.vars.value is not null %}
+						<div class="col-md-1 col-12 text-center">
+							<img src="{{asset('images/users/'~ form.userAvatar.vars.value.imageName)}}" class="img-fluid-tcr" alt="">
+						</div>
+						{% set class = 'col-md-5' %}
+						{% endif %}
+						<div class="{{class}} col-12">{{form_row(form.userAvatar)}}</div>
+					</div>
+					<div class="col-12 row">
+						<div class="col-12 col-md-6">{{form_row(form.email)}}</div>
+						<div class="col-12 col-md-6">{{form_row(form.phone)}}</div>
+						<div class="col-12 col-md-6">{{form_row(form.name)}}</div>
+						<div class="col-12 col-md-6">{{form_row(form.firstName)}}</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center my-3">
+					<button type="submit" class="btn btn-sub">{% trans %}front.user.edit{% endtrans %}</button>
+				</div>
+				{{form_end(form)}}
+			</div>
+			{# --------------------------------------------------------- #}
+			{# -------------------- Tab addresses ---------------------- #}
+			{# --------------------------------------------------------- #}
+			<div class="tab-pane fade bg-white p-3 border-bottom border-start border-end" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+				<div class="h-block-common p-3 my-2">
+					<h2>{% trans %}front.user.myAddress{% endtrans %}</h2>
+				</div>
+				{{form_start(formAddress)}}
+				<div class="adresses" data-index="{{ formAddress.addresses|length > 0 ? formAddress.addresses|last.vars.name + 1 : 0 }}" data-prototype="{{ macrosAddress.renderAddressWidget(formAddress.addresses.vars.prototype)|e('html_attr') }}">
+					{% for address in formAddress.addresses %}
+					<h4>{{address.vars.value.name}}</h4>
+						<div class="row my-3">
+							<div class="col-11">
+								<div class="row">
+									<div class="col-12 col-md-2">{{form_row(address.name)}}</div>
+									<div class="col-12 col-md-6">{{form_row(address.address)}}</div>
+									<div class="col-12 col-md-4">{{form_row(address.complement)}}</div>
+								</div>
+								<div class="row">
+									<div class="col-12 col-md-2">{{form_row(address.zip)}}</div>
+									<div class="col-12 col-md-2">{{form_row(address.city)}}</div>
+									<div class="col-12 col-md-3">{{form_row(address.country)}}</div>
+								</div>
+							</div>
+							<div class="col-1 delete-address" data-id="{{address.vars.value.id}}"><i class="fas fa-trash-alt"></i></div>
+						</div>
+					{% else %}
+						<span id="no-address">{% trans %}front.user.emptyAddress{% endtrans %}</span>
+					{% endfor %}
+				</div>
+				<button type="button" class="add_item_link btn btn-success my-3" data-collection-holder-class="adresses">{% trans %}front.user.addNewAddress{% endtrans %}</button>
+				<div class="d-flex justify-content-end">
+					<button type="submit" class="btn btn-sub">{% trans %}front.user.save{% endtrans %}</button>
+				</div>
+				{{form_end(formAddress)}}
+			</div>
+
+			{# ------------------------------------------------------ #}
+			{# -------------------- Tab Colors ---------------------- #}
+			{# ------------------------------------------------------ #}
+			<div class="tab-pane fade bg-white p-3 border-bottom border-start border-end" id="colors" role="tabpanel" aria-labelledby="colors-tab">
+				<div class="h-block-common p-3 my-2">
+					<h2>{% trans %}front.user.myColors{% endtrans %}</h2>
+				</div>
+				<div class="d-flex flex-wrap  justify-content-start" >
+					{% for color in user.colors %}
+
+						{% set red = color.redFromRGBA * 0.299 %}
+						{% set green = color.greenFromRGBA * 0.587 %}
+						{% set blue = color.blueFromRGBA * 0.114 %}
+						{% if red + green + blue > 186 %}
+							{% set text_color = 'dark' %}
+						{% else %}
+							{% set text_color = 'light' %}
+						{% endif %}
+						<div class="m-md-4 m-2  color-div">
+							<a class="text-decoration-none text-black" href="{{path('app_detail', {'slugCategory':color.colorFamilies|first.category.currentTranslation.slug.text, 'id': color.id})}}">
+								<div class="color-list border" style="background: {{color.hexadecimal1}}">
+									<div class="text-end text-danger me-1 ">
+										<i class="fas fa-heart heart"  title="Ajouter à ma liste" data-id="{{ color.id }}"></i>
+									</div>
+								</div>
+								<div class="text-center">{{color.name|capitalize}}</div>
+							</a>
+						</div>
+					{% else %}
+						<span id="no-address">{% trans %}front.user.emptyColors{% endtrans %}</span>		
+					{% endfor %}
+				</div>
+			</div>
+
+			{# --------------------------------------------------------- #}
+			{# -------------------- Tab Commandes ---------------------- #}
+			{# --------------------------------------------------------- #}
+			<div class="tab-pane fade bg-white p-3 border-bottom border-start border-end" id="commandes" role="tabpanel" aria-labelledby="commandes-tab">
+				<div class="h-block-common p-3 my-2">
+					<h2>{% trans %}front.user.myOrders{% endtrans %}</h2>
+				</div>
+				<table class="table">
+					<tbody>
+						{% for commande in commandes %}
+							<tr class="align-middle">
+								<td>
+									{% if commande.articles|first.type == 'color' %}
+									<div class="fit-content text-center">
+										<div class="panier-color border" style="background: {{commande.articles|first.color.hexadecimal1}}"></div>
+										<span class="">{{commande.articles|first.color.name}}</span>
+									</div>
+									{% elseif commande.articles|first.type == "goodies" %}
+										<img src="{{ asset('images/goodies/' ~ commande.articles|first.goodie.imageName) }}" class="card-img-top panier-color" alt="{{commande.articles|first.goodie.currentTranslation.text}}">
+									{% else %}
+									{% endif %}
+								</td>
+								<td class="col-1"> 
+									<a href="{{path('commande_detail', {'id' : commande.id})}}">{{commande.numCommande}}</a>
+								</td>
+								<td class="text-center">
+									{{ commande.createdAt|date('d/m/Y') }}
+								</td>
+								<td class="text-center">
+									{{ commande.totalPrice }} €
+								</td>
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>				
+
+
+				<div class="navigation">
+				{{ knp_pagination_render(commandes) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset('js/account.js')}}"></script>
+
+{% endblock %}

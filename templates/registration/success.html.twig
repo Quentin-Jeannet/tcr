@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Registration success{% endblock %}
+{% block body %}
+
+
+	<div class="container mt-5">
+		<div class="d-flex flex-wrap">
+			<div class="col-lg-3 col-12 px-3 mb-2 mb-lg-0">
+				<img src="{{asset('images/logo/color-republic-logo-512.png')}}" alt="" class="img-fluid">
+			</div>
+			<div class="col-lg-9 col-12 px-3">
+				<h1 class="title-declaration">{% trans %}front.general.registred.title{% endtrans %}</h1>
+				<div class="line"></div>
+				<p>{% trans %}front.general.registred.message{% endtrans %}</p>
+				<p>{% trans %}front.general.registred.confirm{% endtrans %}</p>
+				<p>{% trans %}front.general.registred.spam{% endtrans %}</p>
+
+			</div>
+		</div>
+    </div>
+
+{% endblock %}

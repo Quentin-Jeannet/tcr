@@ -1,0 +1,42 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.socialNetworks{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}back.titles.socialNetworks{% endtrans %}</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %} back.labels.name {% endtrans %}</th>
+                <th>{% trans %} back.labels.link {% endtrans %}</th>
+                <th>{% trans %} back.labels.active {% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for social_network in social_networks %}
+            <tr>
+                <td>{{ social_network.id }}</td>
+                <td>{{ social_network.name }}</td>
+                <td>
+                    <a href="{{ social_network.link }}" target="blank">{{ social_network.link }}</a>
+                </td>
+                <td>{{ social_network.isActive ? '<i class="align-middle text-success" data-feather="check"></i>' : '<i class="align-middle text-danger" data-feather="x"></i>' }}</td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_social_network_show', {'id': social_network.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_social_network_edit', {'id': social_network.id}) }}" class="btn btn-success">
+                <i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_admin_social_network_new') }}">Create new</a> #}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %} back.titles.floors {% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %} back.titles.floors {% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+        <div class="d-flex me-3">
+            <form action="{{ path('app_admin_floor_index') }}" method="post" class="d-flex">
+                <input type="text" name="search" id="" class="form-control">
+                <button class="btn btn-dark ms-2" type="submit"><i class="align-middle" data-feather="search"></i></button>
+            </form>
+        </div>
+        <a href="{{ path('app_admin_floor_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th class="text-center">{% trans %} back.labels.image {% endtrans %}</th>
+                <th class="text-center">{% trans %} back.labels.name {% endtrans %}</th>
+                <th class="text-center">{% trans %} back.labels.active {% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for floor in floors %}
+            <tr>
+                <td>{{ floor.id }}</td>
+                <td class="text-center"><img src="{{asset('images/floor/'~ floor.imageName  ) | imagine_filter('floor')}}" class="rounded" alt=""></td>
+                <td class="text-center">{{ floor.text }}</td>
+                <td class="text-center">{{ floor.isActive ? 'Yes' : 'No' }}</td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_floor_show', {'id': floor.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_floor_edit', {'id': floor.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+    {{ knp_pagination_render(floors) }}
+    </div>
+
+{% endblock %}

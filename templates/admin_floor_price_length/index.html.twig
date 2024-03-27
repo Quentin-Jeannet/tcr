@@ -1,0 +1,37 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% trans %}back.titles.floorWidth{% endtrans %}{% endblock %}
+
+{% block body %}
+<h1>{% trans %}back.titles.floorWidth{% endtrans %}</h1>
+    <div class="d-flex flex-wrap justify-content-end align-items-start">
+<a href="{{ path('app_admin_floor_price_length_new') }}" class="btn btn-warning">{% trans %} back.ctas.new {% endtrans %}</a>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{% trans %} back.labels.width {% endtrans %}</th>
+                <th class="text-end">{% trans %} back.labels.actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for floor_price_length in floor_price_lengths %}
+            <tr>
+                <td>{{ floor_price_length.id }}</td>
+                <td>{{ floor_price_length.length }} mm</td>
+                <td class="text-end">
+                    {# <a href="{{ path('app_admin_floor_price_length_show', {'id': floor_price_length.id}) }}">show</a> #}
+                    <a href="{{ path('app_admin_floor_price_length_edit', {'id': floor_price_length.id}) }}" class="btn btn-success">
+                <i class="align-middle" data-feather="edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">{% trans %}back.message.noRecordFound{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

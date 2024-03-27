@@ -1,0 +1,31 @@
+<div class="goodies">
+    <h2 class="title-goodies">{% trans %} front.general.ourcolors {% endtrans %}</h2>
+
+    <div class="family d-flex flex-wrap">
+        <div class="first-family-button family-button button-active me-3 mb-3" id="all" data-active='true'>{% trans %} front.general.all{% endtrans %} </div>
+        {% for colorFamily in category.colorFamilies %}
+        <div class="family-button me-3 mb-3" id="{{colorFamily.id}}" data-active='false'>{{colorFamily.currentTranslation.text}}</div>
+        {% endfor %}
+    </div>
+    <div class="d-flex flex-wrap mt-5 justify-content-start" id="colors">
+        {% set i = app.request.pathInfo|split('/') %}
+
+
+        {% for color in colors | colorFilter %}
+            {% set family = '' %} 
+            {% for f in color.colorFamilies %}
+                {% if family|length == 0 %}
+                    {% set family = f.id %}
+                {% else %}
+                    {% set family = family ~ ',' ~ f.id %}
+                {% endif %}
+            {% endfor %}
+            <div class="m-md-4 m-2  color-div" data-family="{{family|trim}}">
+                <a class="text-decoration-none text-black" href="{{path('app_detail', {'slugCategory':category.currentTranslation.slug.text, 'id': color.id})}}">
+                    <div class="color-list border" style="background: {{color.hexadecimal1}}"></div>
+                    <div>{{color.name|capitalize}}</div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
